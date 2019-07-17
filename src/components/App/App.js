@@ -7,7 +7,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withCookies } from 'react-cookie'
 
 import NavigationBar from './../NavigationBar';
-import Login from './../Login'
+import Login from '../Login'
+import SignUp from "../SignUp";
+
 
 import { destroySession } from './../../redux/actions';
 
@@ -34,6 +36,7 @@ class App extends React.Component {
                     </header>
                     <div className='container-fluid'>
                         <Route path='/sign_in' render={ () => (<Login cookies={this.props.cookies} loggedIn={this.loggedIn()} />)}/>
+                        <Route path='/sign_up' render={ () => (<SignUp cookies={this.props.cookies} loggedIn={this.loggedIn()} />)}/>
                     </div>
                 </div>
             </Router>
