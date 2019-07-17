@@ -10,7 +10,7 @@ import {
     Input
 } from 'reactstrap';
 
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { createUserSession } from './../../redux/actions';
 import { STATUSES} from "../../redux/actionTypes";
@@ -133,8 +133,8 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                <div id='id_form_errors'></div>
+            <div className="col-md-4 offset-4 mt-5">
+                <div id='id_form_errors' className='text-danger'></div>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label for='id_email'>Email</Label>
