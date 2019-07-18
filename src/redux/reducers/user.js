@@ -3,16 +3,21 @@ import { Cookies } from 'react-cookie';
 import {
     LOGIN_FAILURE,
     REQUEST_STARTED,
-    REQUEST_DONE, LOGIN_SUCCESS, LOGOUT_SUCCESS
+    REQUEST_DONE,
+    LOGIN_SUCCESS,
+    LOGOUT_SUCCESS,
+    CREATE_USER_FAILURE,
+    CREATE_USER_SUCCESS
 } from './../actionTypes';
 
 
 const cookies = new Cookies();
 
 const initialState = {
-    status:   '',
-    data:     {},
-    jwtToken: null || cookies.get('jwtToken'),
+    status:           '',
+    data:             {},
+    jwtToken:         null || cookies.get('jwtToken'),
+    createUserErrors: {}
 };
 
 const user = (state = initialState, action) => {
@@ -54,7 +59,26 @@ const user = (state = initialState, action) => {
             return Object.assign({},
                 state,
                 {
-                    jwtToken: null
+                    jwtToken: null,
+                    data:     {}
+                });
+
+        case CREATE_USER_FAILURE:
+            return Object.assign({},
+                state,
+                {
+                    createUserErrors: action.createUserErrors,
+                    status:           action.status,
+                });
+
+        case CREATE_USER_SUCCESS:
+            return Object.assign({},
+                state,
+                {
+                    status:           action.status,
+                    data:             action.data,
+                    jwtToken:         action.jwtToken,
+                    createUserErrors: {}
                 });
 
         default:

@@ -1,21 +1,54 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { withRouter } from 'react-router-dom';
+
 import {
-    Alert,
     Button,
     Form,
     FormGroup,
     Label,
     Input,
 } from 'reactstrap';
+
 import FormErrorsAlertBox from '../AlertBoxes/FormErrorsAlertBox';
+
+import { createUserAccount } from '../../redux/actions';
 
 class SignUp extends React.Component {
     state = {
         email: '',
         password: '',
         confirm_password: '',
-        errors: {}
+        errors: null
     };
+
+    componentDidMount() {
+        const { loggedIn } = this.props;
+
+        if (loggedIn) {
+            this.props.history.push('/')
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const { createUserErrors } = this.props.user;
+        const { loggedIn } = this.props;
+
+        if (prevProps.user.createUserErrors !== createUserErrors) {
+            this.setState((state) => {
+                return {
+                    errors: Object.values(createUserErrors)
+                }
+            })
+        }
+
+        if (loggedIn) {
+            this.props.history.push('/')
+        }
+    }
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -24,7 +57,8 @@ class SignUp extends React.Component {
 
         const errors = {};
 
-        const blankInputError = 'can\'t be blank';
+        const blankInputError       = 'can\'t be blank';
+        const passwordMismatchError = 'Ensure all passwords are equal';
 
         if(email.length <= 0) {
             errors['email'] = blankInputError;
@@ -38,10 +72,25 @@ class SignUp extends React.Component {
             errors['confirm_password'] = blankInputError;
         }
 
+        if(password.length > 0 && confirm_password.length > 0) {
+            if(password !== confirm_password) {
+                errors['_passwords'] = passwordMismatchError
+            }
+        }
+
         if(Object.keys(errors).length > 0) {
             this.setState((state) => {
                 return { errors }
             })
+        }
+
+        if(!Object.keys(errors).length > 0) {
+            const { email }    = this.state;
+            const { password } = this.state;
+            const newUserData  = { email, password };
+            const { cookies }  = this.props;
+
+            this.props.createUserAccount(newUserData, cookies);
         }
     };
 
@@ -73,7 +122,11 @@ class SignUp extends React.Component {
     };
 
     hasErrors = () => {
-        return Object.entries(this.state.errors).length > 0;
+        if (!!this.state.errors) {
+            return Object.entries(this.state.errors).length > 0;
+        }
+
+        return false
     };
 
     removeErrors = () => {
@@ -122,4 +175,17 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp;
+const mapStateToProps = ({ user }) => {
+    return { user }
+};
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        createUserAccount
+        }, dispatch)
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(SignUp));

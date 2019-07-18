@@ -12,8 +12,18 @@ class FormErrorsAlertBox extends React.Component {
 
     render() {
         const errors = Object.entries(this.props.errors);
-        const listErrorMessages = errors.map((message, index) =>
-            <li key={index}>{this.normalizeInputName(message[0])} {message[1]}</li>
+        const listErrorMessages = errors.map((message, index) => {
+            if (Array.isArray(message[1])) {
+                return message[1].map((innerMessage, index) => {
+                    return <li key={index}>{innerMessage}</li>
+                })
+            }
+
+            if (message[0].startsWith('_')) {
+                return <li key={index}>{message[1]}</li>
+            }
+            return <li key={index}>{this.normalizeInputName(message[0])} {message[1]}</li>
+            }
         );
 
         return (
