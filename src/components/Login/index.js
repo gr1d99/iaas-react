@@ -8,13 +8,6 @@ import {
     connect
 } from 'react-redux';
 
-import {
-    Button,
-    Form,
-    FormGroup,
-    Label,
-    Input
-} from 'reactstrap';
 
 import {
     blankInputError
@@ -24,13 +17,12 @@ import {
     STATUSES
 } from "../../redux/actionTypes";
 
-
 import {
     createUserSession
 } from '../../services/sessions';
 
 import FormErrorsAlertBox from "../AlertBoxes/FormErrorsAlertBox";
-
+import LoginForm from './LoginForm';
 
 class Login extends React.Component {
     state = {
@@ -41,6 +33,7 @@ class Login extends React.Component {
 
     componentDidMount() {
         const { loggedIn } = this.props;
+
         if (loggedIn) {
             this.props.history.push('/')
         }
@@ -63,6 +56,7 @@ class Login extends React.Component {
 
         if (status === STATUSES.success) {
             const { loggedIn } = this.props;
+
             if (loggedIn) {
                 this.props.history.push("/")
             }
@@ -73,8 +67,7 @@ class Login extends React.Component {
         event.preventDefault();
 
         const { email, password } = this.state;
-
-        const errors = {};
+        const errors              = {};
 
         if(email.length <= 0) {
             errors['email'] = blankInputError;
@@ -92,17 +85,26 @@ class Login extends React.Component {
 
         if(!Object.keys(errors).length > 0) {
             const sessionData = { session: { email, password } };
+
             this.props.dispatch(
                 this.props.createUserSession(
                     sessionData,
                     this.props.cookies
                 )
             );
+            this.setState((state) => {
+                return {
+                    email: '',
+                    password: '',
+                    errors: null
+                }
+            })
         }
     };
 
     handleEmailChange = (event) => {
         const email = event.target.value;
+
         this.setState((state) => {
             return { email: email }
         })
@@ -110,6 +112,7 @@ class Login extends React.Component {
 
     handlePasswordChange = (event) => {
         const password = event.target.value;
+
         this.setState((state) => {
             return { password: password }
         });
@@ -142,27 +145,12 @@ class Login extends React.Component {
                 ): (
                     ''
                 )}
-
-                <Form onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                        <Label for='id_email'>Email</Label>
-                        <Input type='email'
-                               name='email'
-                               id='id_email'
-                               placeholder='your-email@example.com'
-                               value={this.state.email}
-                               onChange={this.handleEmailChange} />
-                    </FormGroup>
-
-                    <FormGroup>
-                        <Label for='id_password'>Password</Label>
-                        <Input type='password'
-                               name='password'
-                               id='id_password'
-                               onChange={this.handlePasswordChange}/>
-                    </FormGroup>
-                    <Button type='submit'>Sign In</Button>
-                </Form>
+                <LoginForm
+                    email={this.state.email}
+                    password={this.state.password}
+                    handleSubmit={this.handleSubmit}
+                    handleEmailChange={this.handleEmailChange}
+                    handlePasswordChange={this.handlePasswordChange}/>
             </div>
         )
     }

@@ -6,7 +6,7 @@ import {
 } from '../../helpers/capitalizer';
 
 class FormErrorsAlertBox extends React.Component {
-    normalizeInputName(name) {
+    static normalizeInputName(name) {
         return firstLetterCapitalizer(name).split('_').join(' ')
     }
 
