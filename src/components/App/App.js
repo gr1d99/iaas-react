@@ -24,8 +24,11 @@ import SignUp from "../SignUp";
 
 import {
     clearNotificationAlert,
-    destroySession,
 } from './../../redux/actions';
+
+import {
+    destroySession
+} from '../../services/sessions';
 
 import './css/App.css';
 
@@ -54,12 +57,13 @@ class App extends React.Component {
                         <div className='container-fluid mt-2'>
                             <MessageAlertBox
                                 alertMessage={this.props.notification.alertMessage}
-                                color={this.props.notification.alertKind}
+                                color={this.props.notification.kind}
                                 onDismiss={this.onDismiss}/>
                         </div>
                     </header>
 
                     <div className='container-fluid'>
+                        <Route path='/' component={App}/>
                         <Route path='/sign_in' render={ () => (<Login cookies={this.props.cookies} loggedIn={this.loggedIn()} />)}/>
                         <Route path='/sign_up' render={ () => (<SignUp cookies={this.props.cookies} loggedIn={this.loggedIn()} />)}/>
                     </div>

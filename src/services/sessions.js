@@ -3,6 +3,7 @@ import axiosInstance from '.'
 import {
     loginFailure,
     loginSuccess,
+    logoutSuccess,
     notificationAlert,
     requestStarted,
     requestFinished
@@ -41,5 +42,13 @@ export const createUserSession = (sessionData, cookies) => {
                     })
                 )
             })
+    }
+};
+
+export const destroySession = (cookies) => {
+    cookies.remove('jwtToken');
+
+    return (dispatch) => {
+        dispatch(logoutSuccess())
     }
 };

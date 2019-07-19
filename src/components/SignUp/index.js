@@ -13,14 +13,6 @@ import {
 } from 'react-router-dom';
 
 import {
-    Button,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-} from 'reactstrap';
-
-import {
     blankInputError,
     passwordMismatchError
 } from '../../constants/validationMessages';
@@ -30,6 +22,7 @@ import {
 } from '../../services/users';
 
 import FormErrorsAlertBox from '../AlertBoxes/FormErrorsAlertBox';
+import SignupForm from './SignUpForm';
 
 
 class SignUp extends React.Component {
@@ -158,33 +151,15 @@ class SignUp extends React.Component {
                         hasErrors={this.hasErrors}
                         removeErrors={this.removeErrors}/>
                 ): '' }
-                <Form onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                        <Label for='id_email'>Email</Label>
-                        <Input type='email'
-                               name='email'
-                               id='id_email'
-                               placeholder='you@example.com'
-                               onChange={this.handleEmailChange}/>
-                    </FormGroup>
 
-                    <FormGroup>
-                        <Label for='id_password'>Password</Label>
-                        <Input type='password'
-                               name='password'
-                               id='id_password'
-                               onChange={this.handlePasswordChange}/>
-                    </FormGroup>
-
-                    <FormGroup>
-                        <Label for='id_confirm_password'>Confirm Password</Label>
-                        <Input type='password'
-                               name='confirm_password'
-                               id='id_confirm_password'
-                               onChange={this.handleConfirmPasswordChange}/>
-                    </FormGroup>
-                    <Button>Create Account</Button>
-                </Form>
+                <SignupForm
+                    email={this.state.email}
+                    password={this.state.password}
+                    confirm_password={this.state.confirm_password}
+                    handleSubmit={this.handleSubmit}
+                    handleEmailChange={this.handleEmailChange}
+                    handlePasswordChange={this.handlePasswordChange}
+                    handleConfirmPasswordChange={this.handleConfirmPasswordChange}/>
             </div>
         )
     }

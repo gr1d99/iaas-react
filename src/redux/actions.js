@@ -11,11 +11,6 @@ import {
     CLEAR_NOTIFICATION_ALERT
 } from './actionTypes';
 
-import {
-    NOTIFICATION_KINDS,
-    USERS
-} from '../constants/notificationMessages';
-
 
 export const requestStarted = () => {
     return {
@@ -49,7 +44,7 @@ export const loginFailure = (opts) => {
     }
 };
 
-const logoutSuccess = () => {
+export const logoutSuccess = () => {
     return {
         type:   LOGOUT_SUCCESS,
         status: STATUSES.success
@@ -87,10 +82,3 @@ export const clearNotificationAlert = () => {
     }
 };
 
-export const destroySession = (cookies) => {
-    cookies.remove('jwtToken');
-
-    return (dispatch) => {
-        dispatch(logoutSuccess())
-    }
-};
