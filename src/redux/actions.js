@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
@@ -7,26 +6,32 @@ import {
     REQUEST_DONE,
     STATUSES,
     CREATE_USER_FAILURE,
-    CREATE_USER_SUCCESS
+    CREATE_USER_SUCCESS,
+    NOTIFICATION_ALERT,
+    CLEAR_NOTIFICATION_ALERT
 } from './actionTypes';
 
-const BASE_URL = process.env.REACT_APP_DEVELOPMENT_ENDPOINT;
+import {
+    NOTIFICATION_KINDS,
+    USERS
+} from '../constants/notificationMessages';
 
-const requestStarted = () => {
+
+export const requestStarted = () => {
     return {
         type:   REQUEST_STARTED,
         status: STATUSES.loading
     }
 };
 
-const requestFinished = () => {
+export const requestFinished = () => {
     return {
         type:   REQUEST_DONE,
         status: STATUSES.done
     }
 };
 
-const loginSuccess = (opts) => {
+export const loginSuccess = (opts) => {
     return {
         type:     LOGIN_SUCCESS,
         status:   STATUSES.success,
@@ -35,7 +40,7 @@ const loginSuccess = (opts) => {
     }
 };
 
-const loginFailure = (opts) => {
+export const loginFailure = (opts) => {
     return {
         type:     LOGIN_FAILURE,
         status:   STATUSES.failure,
@@ -51,7 +56,7 @@ const logoutSuccess = () => {
     }
 };
 
-const createUserFailure = (errors) => {
+export const createUserFailure = (errors) => {
     return {
         type:             CREATE_USER_FAILURE,
         createUserErrors: errors,
@@ -59,7 +64,7 @@ const createUserFailure = (errors) => {
     }
 };
 
-const createUserSuccess = (opts) => {
+export const createUserSuccess = (opts) => {
     return {
         type:     CREATE_USER_SUCCESS,
         status:   STATUSES.success,
@@ -68,74 +73,24 @@ const createUserSuccess = (opts) => {
     }
 };
 
-export const createUserSession = (sessionData, cookies) => {
-    const url = `${BASE_URL}/sessions`;
-    return (dispatch) => {
-        dispatch(requestStarted());
-        return axios.post(url, sessionData)
-            .then((response) => {
-                dispatch(requestFinished());
-                const userJwt = response.headers['x-access-token'];
-                cookies.set('jwtToken', userJwt);
-                dispatch(
-                    loginSuccess({
-                        data:     response.data,
-                        jwtToken: userJwt,
-                    })
-                );
-            }).catch((error) => {
-                dispatch(requestFinished());
-                dispatch(loginFailure(
-                    {
-                        data:     error.response.data,
-                        jwtToken: null,
-                    })
-                )
-            })
+export const notificationAlert = ({message, kind}) => {
+    return {
+        type: NOTIFICATION_ALERT,
+        alertMessage: message,
+        kind
     }
 };
 
+export const clearNotificationAlert = () => {
+    return {
+        type: CLEAR_NOTIFICATION_ALERT
+    }
+};
 
 export const destroySession = (cookies) => {
     cookies.remove('jwtToken');
+
     return (dispatch) => {
         dispatch(logoutSuccess())
-    }
-};
-
-export const createUserAccount = (userData, cookies) => {
-    const url = `${BASE_URL}/users`;
-
-    return dispatch => {
-        dispatch(requestStarted());
-
-        return axios.post(
-            url,
-            { user: userData }
-        ).then((response) => {
-            dispatch(requestFinished());
-
-            const userJwt = response.headers['x-access-token'];
-
-            cookies.set('jwtToken', userJwt);
-
-            dispatch(createUserSuccess({
-                data:     response.data,
-                jwtToken: userJwt,
-                })
-            );
-        }).catch((error) => {
-            switch (error.response.status) {
-                case 422:
-                    const { errors } = error.response.data;
-
-                    dispatch(createUserFailure(errors));
-
-                    break;
-                default:
-                    dispatch(createUserFailure(error));
-            }
-
-        })
     }
 };

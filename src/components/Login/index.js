@@ -18,7 +18,7 @@ import {
 
 import {
     blankInputError
-} from '../constants/validationMessages';
+} from '../../constants/validationMessages';
 
 import {
     STATUSES
@@ -27,7 +27,7 @@ import {
 
 import {
     createUserSession
-} from './../../redux/actions';
+} from '../../services/sessions';
 
 import FormErrorsAlertBox from "../AlertBoxes/FormErrorsAlertBox";
 

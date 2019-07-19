@@ -1,27 +1,45 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
+import {
+    BrowserRouter as Router,
+    Route
+} from 'react-router-dom';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+    connect
+} from 'react-redux';
 
-import { withCookies } from 'react-cookie'
+import {
+    bindActionCreators
+} from 'redux';
 
-import NavigationBar from './../NavigationBar';
+import {
+    withCookies
+} from 'react-cookie'
+
 import Login from '../Login'
+import MessageAlertBox from '../AlertBoxes/MessageAlertBox';
+import NavigationBar from './../NavigationBar';
 import SignUp from "../SignUp";
 
-
-import { destroySession } from './../../redux/actions';
+import {
+    clearNotificationAlert,
+    destroySession,
+} from './../../redux/actions';
 
 import './css/App.css';
 
 class App extends React.Component {
     logoutUser = () => {
-        this.props.dispatch(this.props.destroySession(this.props.cookies));
+        this.props.destroySession(this.props.cookies);
     };
 
     loggedIn = () => {
         return !!this.props.user.jwtToken
+    };
+
+    onDismiss = () => {
+        this.props.dispatch(this.props.clearNotificationAlert())
     };
 
     render() {
@@ -33,7 +51,14 @@ class App extends React.Component {
                         logoutUser={this.logoutUser}/>
 
                     <header className='App-header'>
+                        <div className='container-fluid mt-2'>
+                            <MessageAlertBox
+                                alertMessage={this.props.notification.alertMessage}
+                                color={this.props.notification.alertKind}
+                                onDismiss={this.onDismiss}/>
+                        </div>
                     </header>
+
                     <div className='container-fluid'>
                         <Route path='/sign_in' render={ () => (<Login cookies={this.props.cookies} loggedIn={this.loggedIn()} />)}/>
                         <Route path='/sign_up' render={ () => (<SignUp cookies={this.props.cookies} loggedIn={this.loggedIn()} />)}/>
@@ -44,14 +69,20 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    user: state.user
-});
+const mapStateToProps = ({user, notification}, ownProps) => {
+    return {
+        user,
+        notification
+    }
+};
 
-const mapDispatchToProps = (dispatch) => ({
-    destroySession,
-    dispatch,
-});
+const mapDispatchToProps = (dispatch) => (
+    bindActionCreators({
+        clearNotificationAlert,
+        destroySession,
+        dispatch
+    }, dispatch)
+);
 
 export default connect(
     mapStateToProps,

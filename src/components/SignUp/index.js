@@ -23,11 +23,11 @@ import {
 import {
     blankInputError,
     passwordMismatchError
-} from '../constants/validationMessages';
+} from '../../constants/validationMessages';
 
 import {
     createUserAccount
-} from '../../redux/actions';
+} from '../../services/users';
 
 import FormErrorsAlertBox from '../AlertBoxes/FormErrorsAlertBox';
 
