@@ -1,9 +1,16 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import {
+    connect
+} from 'react-redux';
 
-import { withRouter } from 'react-router-dom';
+import {
+    bindActionCreators
+} from 'redux';
+
+import {
+    withRouter
+} from 'react-router-dom';
 
 import {
     Button,
@@ -13,9 +20,17 @@ import {
     Input,
 } from 'reactstrap';
 
+import {
+    blankInputError,
+    passwordMismatchError
+} from '../constants/validationMessages';
+
+import {
+    createUserAccount
+} from '../../redux/actions';
+
 import FormErrorsAlertBox from '../AlertBoxes/FormErrorsAlertBox';
 
-import { createUserAccount } from '../../redux/actions';
 
 class SignUp extends React.Component {
     state = {
@@ -56,9 +71,6 @@ class SignUp extends React.Component {
         const { email, password, confirm_password } = this.state;
 
         const errors = {};
-
-        const blankInputError       = 'can\'t be blank';
-        const passwordMismatchError = 'Ensure all passwords are equal';
 
         if(email.length <= 0) {
             errors['email'] = blankInputError;
@@ -140,9 +152,12 @@ class SignUp extends React.Component {
     render() {
         return (
             <div className='col-4 offset-4 mt-5'>
-                { this.hasErrors() ? <FormErrorsAlertBox errors={this.state.errors}
-                                                    hasErrors={this.hasErrors}
-                                                    removeErrors={this.removeErrors}/> : '' }
+                { this.hasErrors() ? (
+                    <FormErrorsAlertBox
+                        errors={this.state.errors}
+                        hasErrors={this.hasErrors}
+                        removeErrors={this.removeErrors}/>
+                ): '' }
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label for='id_email'>Email</Label>
@@ -175,8 +190,11 @@ class SignUp extends React.Component {
     }
 }
 
-const mapStateToProps = ({ user }) => {
-    return { user }
+const mapStateToProps = ({ user }, ownProps) => {
+    return {
+        user,
+        loggedIn: ownProps.loggedIn
+    }
 };
 
 const mapDispatchToProps = dispatch => {
