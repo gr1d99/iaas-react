@@ -3,10 +3,10 @@ import {
     Collapse,
     Navbar,
     NavbarToggler,
-    NavbarBrand,
     Nav,
     NavItem,
 } from 'reactstrap';
+
 import { Link } from "react-router-dom";
 
 
@@ -30,7 +30,7 @@ export default class NavigationBar extends React.Component {
         return (
             <Nav className='ml-auto' navbar>
                 <NavItem>
-                    <a className='nav-link' href='#' onClick={this.props.logoutUser}>Logout</a>
+                    <Link className='nav-link' to='/' onClick={this.props.logoutUser}>Logout</Link>
                 </NavItem>
             </Nav>
         );
@@ -53,7 +53,7 @@ export default class NavigationBar extends React.Component {
         return (
             <div>
                 <Navbar color='light' light expand='md'>
-                    <NavbarBrand href='/'>IAPS</NavbarBrand>
+                    <Link className='navbar-brand' to='/'>IAPS</Link>
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         {
