@@ -6,67 +6,34 @@ import {
 } from 'react-router-dom';
 
 import {
-    connect
-} from 'react-redux';
-
-import {
-    bindActionCreators
-} from 'redux';
-
-import {
     withCookies
 } from 'react-cookie'
-
-import {
-    clearNotificationAlert,
-} from './../../redux/actions';
-
-import {
-    destroySession
-} from '../../services/sessions';
 
 import './css/App.css';
 
 import HomePage from '../HomePage';
 import Login from '../Login'
-import MessageAlertBox from '../AlertBoxes/MessageAlertBox';
 import NavigationBar from './../NavigationBar';
 import SignUp from "../SignUp";
 
+export const userLoggedIn = (user) => {
+    return !!user.jwtToken;
+};
+
 class App extends React.Component {
-    logoutUser = () => {
-        this.props.destroySession(this.props.cookies);
-    };
-
-    loggedIn = () => {
-        return !!this.props.user.jwtToken
-    };
-
-    onDismiss = () => {
-        this.props.dispatch(this.props.clearNotificationAlert())
-    };
-
     render() {
         return (
             <Router>
                 <div className='App'>
-                    <NavigationBar
-                        loggedIn={ this.loggedIn() }
-                        logoutUser={this.logoutUser}/>
+                    <NavigationBar cookies={this.props.cookies} userLoggedIn={userLoggedIn} />
 
                     <header className='App-header'>
-                        <div className='container-fluid mt-2'>
-                            <MessageAlertBox
-                                alertMessage={this.props.notification.alertMessage}
-                                color={this.props.notification.kind}
-                                onDismiss={this.onDismiss}/>
-                        </div>
                     </header>
 
                     <div className='container-fluid'>
-                        <Route path='/' exact render={ () => (<HomePage loggedIn={this.loggedIn()} />)}/>
-                        <Route path='/sign_in' render={ () => (<Login cookies={this.props.cookies} loggedIn={this.loggedIn()} />)}/>
-                        <Route path='/sign_up' render={ () => (<SignUp cookies={this.props.cookies} loggedIn={this.loggedIn()} />)}/>
+                        <Route path='/' exact render={HomePage} />
+                        <Route path='/sign_in' render={() => <Login userLoggedIn={userLoggedIn} cookies={this.props.cookies} />} />
+                        <Route path='/sign_up' component={() => <SignUp userLoggedIn={userLoggedIn} cookies={this.props.cookies}/>} />
                     </div>
                 </div>
             </Router>
@@ -74,22 +41,4 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({user, notification}, ownProps) => {
-    return {
-        user,
-        notification
-    }
-};
-
-const mapDispatchToProps = (dispatch) => (
-    bindActionCreators({
-        clearNotificationAlert,
-        destroySession,
-        dispatch
-    }, dispatch)
-);
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withCookies(App));
+export default withCookies(App);

@@ -24,6 +24,8 @@ import {
 import FormErrorsAlertBox from '../AlertBoxes/FormErrorsAlertBox';
 import SignupForm from './SignUpForm';
 
+import { userLoggedIn } from "../App";
+
 
 class SignUp extends React.Component {
     state = {
@@ -34,7 +36,7 @@ class SignUp extends React.Component {
     };
 
     componentDidMount() {
-        const { loggedIn } = this.props;
+        const loggedIn = userLoggedIn(this.props.user);
 
         if (loggedIn) {
             this.props.history.push('/')
@@ -43,7 +45,7 @@ class SignUp extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { createUserErrors } = this.props.user;
-        const { loggedIn } = this.props;
+        const loggedIn = userLoggedIn(this.props.user);
 
         if (prevProps.user.createUserErrors !== createUserErrors) {
             this.setState((state) => {

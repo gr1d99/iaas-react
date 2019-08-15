@@ -11,26 +11,25 @@ import { Link } from "react-router-dom";
 
 
 export default class NavigationBar extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        isOpen: false
+    };
 
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
-    }
-
-    toggle() {
+    toggle = () => {
         this.setState({
             isOpen: !this.state.isOpen
         });
-    }
+    };
+
+    logoutUser = () => {
+        this.props.destroySession(this.props.cookies)
+    };
 
     authenticatedLinks() {
         return (
             <Nav className='ml-auto' navbar>
                 <NavItem>
-                    <Link className='nav-link' to='/' onClick={this.props.logoutUser}>Logout</Link>
+                    <Link className='nav-link' to='/' onClick={this.logoutUser}>Logout</Link>
                 </NavItem>
             </Nav>
         );
@@ -57,7 +56,7 @@ export default class NavigationBar extends React.Component {
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         {
-                            this.props.loggedIn ? (
+                            this.props.userLoggedIn(this.props.user) ? (
                                 this.authenticatedLinks()
                             ) : (
                                 this.unAuthenticatedLinks()

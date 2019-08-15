@@ -8,7 +8,6 @@ import {
     connect
 } from 'react-redux';
 
-
 import {
     blankInputError
 } from '../../constants/validationMessages';
@@ -32,7 +31,8 @@ class Login extends React.Component {
     };
 
     componentDidMount() {
-        const { loggedIn } = this.props;
+        console.log(this.props)
+        const loggedIn = this.props.userLoggedIn(this.props.user);
 
         if (loggedIn) {
             this.props.history.push('/')
@@ -55,7 +55,7 @@ class Login extends React.Component {
         }
 
         if (status === STATUSES.success) {
-            const { loggedIn } = this.props;
+            const loggedIn = this.props.userLoggedIn(this.props.user);
 
             if (loggedIn) {
                 this.props.history.push("/")
@@ -156,10 +156,12 @@ class Login extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    user:    state.user,
-    cookies: ownProps.cookies
-});
+const mapStateToProps = (state, ownProps) => {
+    return {
+        user: state.user,
+        cookies: ownProps.cookies
+    }
+};
 
 const mapDispatchToProps = (dispatch) => ({
     createUserSession,
