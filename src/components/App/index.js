@@ -64,7 +64,7 @@ class App extends React.Component {
                     </header>
 
                     <div className='container-fluid'>
-                        <Route path='/' exact component={HomePage}/>
+                        <Route path='/' exact render={ () => (<HomePage loggedIn={this.loggedIn()} />)}/>
                         <Route path='/sign_in' render={ () => (<Login cookies={this.props.cookies} loggedIn={this.loggedIn()} />)}/>
                         <Route path='/sign_up' render={ () => (<SignUp cookies={this.props.cookies} loggedIn={this.loggedIn()} />)}/>
                     </div>

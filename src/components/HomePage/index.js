@@ -1,8 +1,10 @@
 import React from 'react';
 
-const HomePage = () => {
+const HomePage = (props) => {
     return (
-        <h1 className="text-center">Home Page</h1>
+        <div className="mt-5">
+            <h1 className="text-center">Home Page</h1>
+        </div>
     )
 };
 
