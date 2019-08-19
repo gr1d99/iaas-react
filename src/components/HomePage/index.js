@@ -1,11 +1,26 @@
-import React from 'react';
+import React from "react";
 
-const HomePage = (props) => {
-    return (
-        <div className="mt-5">
-            <h1 className="text-center">Home Page</h1>
-        </div>
-    )
+import {
+    connect
+} from "react-redux";
+
+import Admin from "./Admin";
+
+class HomePage extends React.Component {
+    render() {
+        return (
+            <div className="mt-5">
+                { this.props.isAdmin ? <Admin/> : ''}
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = ({ user }, ownProps) => {
+    return {
+        user,
+        isAdmin: ownProps.isAdmin(user)
+    }
 };
 
-export default HomePage;
+export default connect(mapStateToProps, null)(HomePage);
