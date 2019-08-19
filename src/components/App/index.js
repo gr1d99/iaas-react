@@ -11,6 +11,8 @@ import {
 
 import './css/App.css';
 
+import '../Icons';
+
 import HomePage from '../HomePage';
 import Login from '../Login'
 import NavigationBar from './../NavigationBar';
@@ -27,8 +29,7 @@ class App extends React.Component {
                 <div className='App'>
                     <NavigationBar cookies={this.props.cookies} userLoggedIn={userLoggedIn} />
 
-                    <header className='App-header'>
-                    </header>
+                    <header className='App-header'></header>
 
                     <div className='container-fluid'>
                         <Route path='/' exact render={HomePage} />
