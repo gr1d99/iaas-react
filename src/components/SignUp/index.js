@@ -24,7 +24,6 @@ import {
 import FormErrorsAlertBox from '../AlertBoxes/FormErrorsAlertBox';
 import SignupForm from './SignUpForm';
 
-import { userLoggedIn } from "../App";
 
 
 class SignUp extends React.Component {
@@ -36,16 +35,15 @@ class SignUp extends React.Component {
     };
 
     componentDidMount() {
-        const loggedIn = userLoggedIn(this.props.user);
 
-        if (loggedIn) {
+        if (this.props.userLoggedIn) {
+            console.log(this.props)
             this.props.history.push('/')
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { createUserErrors } = this.props.user;
-        const loggedIn = userLoggedIn(this.props.user);
 
         if (prevProps.user.createUserErrors !== createUserErrors) {
             this.setState((state) => {
@@ -55,7 +53,7 @@ class SignUp extends React.Component {
             })
         }
 
-        if (loggedIn) {
+        if (this.props.userLoggedIn) {
             this.props.history.push('/')
         }
     }
@@ -170,7 +168,7 @@ class SignUp extends React.Component {
 const mapStateToProps = ({ user }, ownProps) => {
     return {
         user,
-        loggedIn: ownProps.loggedIn
+        userLoggedIn: ownProps.userLoggedIn(user)
     }
 };
 

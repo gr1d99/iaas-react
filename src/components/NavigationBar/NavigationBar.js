@@ -56,7 +56,7 @@ export default class NavigationBar extends React.Component {
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         {
-                            this.props.userLoggedIn(this.props.user) ? (
+                            this.props.userLoggedIn ? (
                                 this.authenticatedLinks()
                             ) : (
                                 this.unAuthenticatedLinks()

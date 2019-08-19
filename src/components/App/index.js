@@ -33,7 +33,7 @@ class App extends React.Component {
                     <div className='container-fluid'>
                         <Route path='/' exact render={HomePage} />
                         <Route path='/sign_in' render={() => <Login userLoggedIn={userLoggedIn} cookies={this.props.cookies} />} />
-                        <Route path='/sign_up' component={() => <SignUp userLoggedIn={userLoggedIn} cookies={this.props.cookies}/>} />
+                        <Route path='/sign_up' component={() => <SignUp userLoggedIn={userLoggedIn} cookies={this.props.cookies} />} />
                     </div>
                 </div>
             </Router>

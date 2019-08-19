@@ -31,10 +31,7 @@ class Login extends React.Component {
     };
 
     componentDidMount() {
-        console.log(this.props)
-        const loggedIn = this.props.userLoggedIn(this.props.user);
-
-        if (loggedIn) {
+        if (this.props.userLoggedIn) {
             this.props.history.push('/')
         }
     }
@@ -55,9 +52,8 @@ class Login extends React.Component {
         }
 
         if (status === STATUSES.success) {
-            const loggedIn = this.props.userLoggedIn(this.props.user);
 
-            if (loggedIn) {
+            if ( this.props.userLoggedIn) {
                 this.props.history.push("/")
             }
         }
@@ -156,10 +152,11 @@ class Login extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ user }, ownProps) => {
     return {
-        user: state.user,
-        cookies: ownProps.cookies
+        user: user,
+        cookies: ownProps.cookies,
+        userLoggedIn: ownProps.userLoggedIn(user)
     }
 };
 

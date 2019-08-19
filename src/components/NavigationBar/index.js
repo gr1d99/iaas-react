@@ -12,8 +12,9 @@ import {
 
 import NavigationBar from './NavigationBar';
 
-const mapStateToProps = (state, ownProps) => ({
-    user: state.user
+const mapStateToProps = ({ user }, ownProps) => ({
+    user: user,
+    userLoggedIn: ownProps.userLoggedIn(user)
 });
 
 const mapDispatchToProps = (dispatch) => (
