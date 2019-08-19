@@ -15,9 +15,12 @@ import './css/App.css';
 
 import '../Icons';
 
+import withAlertMessage from "../HOCs/withAlertMessage"
 import HomePage from '../HomePage';
 import Login from '../Login'
+import MessageAlertBox from "../AlertBoxes/MessageAlertBox";
 import NavigationBar from './../NavigationBar';
+import NewOpening from "../Openings"
 import SignUp from "../SignUp";
 
 import {
@@ -44,9 +47,13 @@ class App extends React.Component {
                 <div className='App'>
                     <NavigationBar cookies={this.props.cookies} userLoggedIn={userLoggedIn} />
 
-                    <header className='App-header'></header>
+                    <header className='App-header'>
+
+                    </header>
 
                     <div className='container-fluid'>
+                        <MessageAlertBox onDismiss={this.props.onDismissAlert} {...this.props.alertOptions}/>
+
                         <Route path='/'
                                exact
                                render={() => <HomePage isAdmin={isAdmin} /> } />
@@ -58,6 +65,11 @@ class App extends React.Component {
                         <Route path='/sign_up'
                                render={() => <SignUp userLoggedIn={userLoggedIn}
                                                      cookies={this.props.cookies} />} />
+
+                        <Route path="/openings/new"
+                               render={() => <NewOpening userLoggedIn={userLoggedIn}
+                                                         isAdmin={isAdmin}
+                                                         showAlertMessage={this.props.showAlertMessage}/>}/>
                     </div>
                 </div>
             </Router>
@@ -65,4 +77,4 @@ class App extends React.Component {
     }
 }
 
-export default withCookies(App);
+export default withCookies(withAlertMessage(App));

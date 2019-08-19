@@ -10,7 +10,7 @@ class MessageAlertBox extends React.Component {
         return (
             <Alert
                 color={this.props.color}
-                isOpen={this.props.alertMessage.length > 0}
+                isOpen={this.props.visible}
                 toggle={this.props.onDismiss}>
                 {this.props.alertMessage}
             </Alert>
