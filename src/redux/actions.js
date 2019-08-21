@@ -8,21 +8,20 @@ import {
     CREATE_USER_FAILURE,
     CREATE_USER_SUCCESS,
     NOTIFICATION_ALERT,
-    CLEAR_NOTIFICATION_ALERT
+    CLEAR_NOTIFICATION_ALERT,
+    CREATE_OPENING_FAILURE
 } from './actionTypes';
 
 
 export const requestStarted = () => {
     return {
-        type:   REQUEST_STARTED,
-        status: STATUSES.loading
+        type: REQUEST_STARTED,
     }
 };
 
 export const requestFinished = () => {
     return {
-        type:   REQUEST_DONE,
-        status: STATUSES.done
+        type: REQUEST_DONE,
     }
 };
 
@@ -65,6 +64,13 @@ export const createUserSuccess = (opts) => {
         status:   STATUSES.success,
         data:     opts.data,
         jwtToken: opts.jwtToken
+    }
+};
+
+export const createOpeningFailure = (data) => {
+    return {
+        type: CREATE_OPENING_FAILURE,
+        payload: data
     }
 };
 

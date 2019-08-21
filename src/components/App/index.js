@@ -54,22 +54,13 @@ class App extends React.Component {
                     <div className='container-fluid'>
                         <MessageAlertBox onDismiss={this.props.onDismissAlert} {...this.props.alertOptions}/>
 
-                        <Route path='/'
-                               exact
-                               render={() => <HomePage isAdmin={isAdmin} /> } />
+                        <Route path='/' exact render={() => <HomePage isAdmin={isAdmin} /> } />
 
-                        <Route path='/sign_in'
-                               render={() => <Login userLoggedIn={userLoggedIn}
-                                                    cookies={this.props.cookies} />} />
+                        <Route path='/sign_in' render={() => <Login userLoggedIn={userLoggedIn} cookies={this.props.cookies} />} />
 
-                        <Route path='/sign_up'
-                               render={() => <SignUp userLoggedIn={userLoggedIn}
-                                                     cookies={this.props.cookies} />} />
+                        <Route path='/sign_up' render={() => <SignUp userLoggedIn={userLoggedIn} cookies={this.props.cookies} />} />
 
-                        <Route path="/openings/new"
-                               render={() => <NewOpening userLoggedIn={userLoggedIn}
-                                                         isAdmin={isAdmin}
-                                                         showAlertMessage={this.props.showAlertMessage}/>}/>
+                        <Route path="/openings/new" render={() => <NewOpening userLoggedIn={userLoggedIn} isAdmin={isAdmin} showAlertMessage={this.props.showAlertMessage}/>}/>
                     </div>
                 </div>
             </Router>
