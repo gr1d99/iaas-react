@@ -1,21 +1,13 @@
-import {
-    connect
-} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {
-    bindActionCreators
-} from 'redux';
+import { bindActionCreators } from 'redux';
 
-import {
-    destroySession
-} from '../../services/sessions';
+import { destroySession } from '../../services/sessions';
 
 import NavigationBar from './NavigationBar';
+import withAuthentication from "../HOCs/withAuthentication";
 
-const mapStateToProps = ({ user }, ownProps) => ({
-    user: user,
-    userLoggedIn: ownProps.userLoggedIn(user)
-});
+const mapStateToProps = ({ user }) => ({ user: user });
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
@@ -26,4 +18,4 @@ const mapDispatchToProps = (dispatch) => (
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(NavigationBar);
+)(withAuthentication(NavigationBar));

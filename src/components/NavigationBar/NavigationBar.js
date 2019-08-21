@@ -30,8 +30,7 @@ export default class NavigationBar extends React.Component {
         return (
             <Nav className='ml-auto' navbar>
                 <NavItem>
-                    <Link className='nav-link' to='/' onClick={this.logoutUser}>
-                        <FontAwesomeIcon icon='sign-out-alt'/> Logout</Link>
+                    <Link className='nav-link' to='/' onClick={this.logoutUser}><FontAwesomeIcon icon='sign-out-alt'/> Logout</Link>
                 </NavItem>
             </Nav>
         );
@@ -41,13 +40,10 @@ export default class NavigationBar extends React.Component {
         return (
             <Nav className='ml-auto' navbar>
                 <NavItem>
-                    <Link className='nav-link' to='/sign_in'>
-                        <FontAwesomeIcon icon='sign-in-alt'/> Sign In</Link>
+                    <Link className='nav-link' to='/sign_in'><FontAwesomeIcon icon='sign-in-alt'/> Sign In</Link>
                 </NavItem>
-
                 <NavItem>
-                    <Link className='nav-link' to='/sign_up'>
-                        <FontAwesomeIcon icon='user-plus'/> Sign Up</Link>
+                    <Link className='nav-link' to='/sign_up'><FontAwesomeIcon icon='user-plus'/> Sign Up</Link>
                 </NavItem>
             </Nav>
         )
@@ -57,18 +53,10 @@ export default class NavigationBar extends React.Component {
         return (
             <div>
                 <Navbar color='light' light expand='md'>
-                    <Link className='navbar-brand' to='/'>
-                        <FontAwesomeIcon icon='home' /> IAPS</Link>
-
+                    <Link className='navbar-brand' to='/'><FontAwesomeIcon icon='home' /> IAPS</Link>
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
-                        {
-                            this.props.userLoggedIn ? (
-                                this.authenticatedLinks()
-                            ) : (
-                                this.unAuthenticatedLinks()
-                            )
-                        }
+                        { this.props.authenticated ? (this.authenticatedLinks()) : (this.unAuthenticatedLinks()) }
                     </Collapse>
                 </Navbar>
             </div>

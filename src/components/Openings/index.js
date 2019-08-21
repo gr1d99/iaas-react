@@ -8,6 +8,8 @@ import OpeningForm from "./OpeningForm";
 
 import { createOpening } from "../../services/openings";
 
+import withAuthentication from "../HOCs/withAuthentication";
+
 class NewOpening extends React.Component {
     state = {
         title: "",
@@ -21,7 +23,7 @@ class NewOpening extends React.Component {
     };
 
     componentDidMount() {
-        if (!this.props.userLoggedIn) {
+        if (!this.props.authenticated) {
             const alertOptions = {
                 color: "danger",
                 alertMessage: "You must be authenticated before creating an Opening"
@@ -36,7 +38,7 @@ class NewOpening extends React.Component {
             return
         }
 
-        if (!this.props.isAdmin) {
+        if (!this.props.admin) {
             this.props.history.push("/");
 
             const alertOptions = {
@@ -52,12 +54,15 @@ class NewOpening extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+
         this.props.createOpening(this.state)
     };
 
     handleInputChange = (event) => {
         const inputData = {};
+
         inputData[event.target.name] = event.target.value;
+
         this.setState(inputData)
     };
 
@@ -68,13 +73,8 @@ class NewOpening extends React.Component {
     }
 }
 
-const mapStateToProps = ({ user, opening }, ownProps) => {
-        return {
-            user,
-            opening,
-            userLoggedIn: ownProps.userLoggedIn(user),
-            isAdmin: ownProps.isAdmin(user)
-        }
+const mapStateToProps = ({ user, opening }) => {
+        return { user, opening }
 };
 
-export default connect(mapStateToProps, { createOpening })(withRouter(NewOpening));
+export default connect(mapStateToProps, { createOpening })(withRouter(withAuthentication(NewOpening)));

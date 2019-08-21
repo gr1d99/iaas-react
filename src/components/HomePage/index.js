@@ -6,6 +6,8 @@ import {
 
 import Admin from "./Admin";
 
+import { isAdmin } from "../../utils";
+
 class HomePage extends React.Component {
     render() {
         return (
@@ -16,10 +18,10 @@ class HomePage extends React.Component {
     }
 }
 
-const mapStateToProps = ({ user }, ownProps) => {
+const mapStateToProps = ({ user }) => {
     return {
         user,
-        isAdmin: ownProps.isAdmin(user)
+        isAdmin: isAdmin(user)
     }
 };
 

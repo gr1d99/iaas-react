@@ -22,6 +22,7 @@ import {
 
 import FormErrorsAlertBox from "../AlertBoxes/FormErrorsAlertBox";
 import LoginForm from './LoginForm';
+import withAuthentication from "../HOCs/withAuthentication";
 
 class Login extends React.Component {
     state = {
@@ -31,9 +32,7 @@ class Login extends React.Component {
     };
 
     componentDidMount() {
-        if (this.props.userLoggedIn) {
-            this.props.history.push('/')
-        }
+        return this.props.authenticated ? this.props.history.push("/") : null
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -52,11 +51,29 @@ class Login extends React.Component {
         }
 
         if (status === STATUSES.success) {
-
-            if ( this.props.userLoggedIn) {
-                this.props.history.push("/")
-            }
+            return this.props.authenticated ? this.props.history.push("/") : null
         }
+    }
+
+    render() {
+        return (
+            <div className="col-md-4 offset-4 mt-5">
+                { this.hasErrors() ? (
+                    <FormErrorsAlertBox
+                        errors={this.state.errors}
+                        hasErrors={this.hasErrors}
+                        removeErrors={this.removeErrors}/>
+                ): (
+                    ''
+                )}
+                <LoginForm
+                    email={this.state.email}
+                    password={this.state.password}
+                    handleSubmit={this.handleSubmit}
+                    handleEmailChange={this.handleEmailChange}
+                    handlePasswordChange={this.handlePasswordChange}/>
+            </div>
+        )
     }
 
     handleSubmit = (event) => {
@@ -102,7 +119,7 @@ class Login extends React.Component {
         const email = event.target.value;
 
         this.setState((state) => {
-            return { email: email }
+            return { email }
         })
     };
 
@@ -110,7 +127,7 @@ class Login extends React.Component {
         const password = event.target.value;
 
         this.setState((state) => {
-            return { password: password }
+            return { password }
         });
     };
 
@@ -124,48 +141,15 @@ class Login extends React.Component {
 
     removeErrors = () => {
         this.setState((state) => {
-            return {
-                errors: {}
-            }
+            return { errors: {} }
         })
     };
-
-    render() {
-        return (
-            <div className="col-md-4 offset-4 mt-5">
-                { this.hasErrors() ? (
-                    <FormErrorsAlertBox
-                        errors={this.state.errors}
-                        hasErrors={this.hasErrors}
-                        removeErrors={this.removeErrors}/>
-                ): (
-                    ''
-                )}
-                <LoginForm
-                    email={this.state.email}
-                    password={this.state.password}
-                    handleSubmit={this.handleSubmit}
-                    handleEmailChange={this.handleEmailChange}
-                    handlePasswordChange={this.handlePasswordChange}/>
-            </div>
-        )
-    }
 }
 
 const mapStateToProps = ({ user }, ownProps) => {
-    return {
-        user: user,
-        cookies: ownProps.cookies,
-        userLoggedIn: ownProps.userLoggedIn(user)
-    }
+    return { user, cookies: ownProps.cookies }
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    createUserSession,
-    dispatch
-});
+const mapDispatchToProps = (dispatch) => ({ createUserSession, dispatch });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withRouter(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withAuthentication(Login)));

@@ -23,6 +23,7 @@ import {
 
 import FormErrorsAlertBox from '../AlertBoxes/FormErrorsAlertBox';
 import SignupForm from './SignUpForm';
+import withAuthentication from "../HOCs/withAuthentication";
 
 
 
@@ -35,11 +36,7 @@ class SignUp extends React.Component {
     };
 
     componentDidMount() {
-
-        if (this.props.userLoggedIn) {
-            console.log(this.props)
-            this.props.history.push('/')
-        }
+        return this.props.authenticated ? this.props.history.push("/") : null
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -53,9 +50,17 @@ class SignUp extends React.Component {
             })
         }
 
-        if (this.props.userLoggedIn) {
-            this.props.history.push('/')
-        }
+        return this.props.authenticated ? this.props.history.push("/") : null
+    }
+
+    render() {
+        return (
+            <div className='col-4 offset-4 mt-5'>
+                { this.hasErrors() ? (<FormErrorsAlertBox errors={this.state.errors} hasErrors={this.hasErrors} removeErrors={this.removeErrors}/>) : '' }
+
+                <SignupForm email={this.state.email} password={this.state.password} confirm_password={this.state.confirm_password} handleSubmit={this.handleSubmit} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} handleConfirmPasswordChange={this.handleConfirmPasswordChange}/>
+            </div>
+        )
     }
 
     handleSubmit = (event) => {
@@ -141,44 +146,14 @@ class SignUp extends React.Component {
             }
         })
     };
-
-    render() {
-        return (
-            <div className='col-4 offset-4 mt-5'>
-                { this.hasErrors() ? (
-                    <FormErrorsAlertBox
-                        errors={this.state.errors}
-                        hasErrors={this.hasErrors}
-                        removeErrors={this.removeErrors}/>
-                ): '' }
-
-                <SignupForm
-                    email={this.state.email}
-                    password={this.state.password}
-                    confirm_password={this.state.confirm_password}
-                    handleSubmit={this.handleSubmit}
-                    handleEmailChange={this.handleEmailChange}
-                    handlePasswordChange={this.handlePasswordChange}
-                    handleConfirmPasswordChange={this.handleConfirmPasswordChange}/>
-            </div>
-        )
-    }
 }
 
-const mapStateToProps = ({ user }, ownProps) => {
-    return {
-        user,
-        userLoggedIn: ownProps.userLoggedIn(user)
-    }
+const mapStateToProps = ({ user }) => {
+    return { user }
 };
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({
-        createUserAccount
-        }, dispatch)
+    return bindActionCreators({ createUserAccount }, dispatch)
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(withRouter(SignUp));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withAuthentication(SignUp)));
