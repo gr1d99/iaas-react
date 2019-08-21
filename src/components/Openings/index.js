@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 
 import { withRouter } from "react-router-dom";
 
-import OpeningForm from "./OpeningForm";
-
 import { createOpening } from "../../services/openings";
 
 import withAuthentication from "../HOCs/withAuthentication";
+import OpeningForm from "./OpeningForm";
+
 
 class NewOpening extends React.Component {
     state = {

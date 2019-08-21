@@ -1,28 +1,18 @@
 import React from 'react';
 
-import {
-    withRouter
-} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-import {
-    connect
-} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {
-    blankInputError
-} from '../../constants/validationMessages';
+import { blankInputError } from '../../constants/validationMessages';
 
-import {
-    STATUSES
-} from "../../redux/actionTypes";
+import { STATUSES } from "../../redux/actionTypes";
 
-import {
-    createUserSession
-} from '../../services/sessions';
+import { createUserSession } from '../../services/sessions';
 
+import withAuthentication from "../HOCs/withAuthentication";
 import FormErrorsAlertBox from "../AlertBoxes/FormErrorsAlertBox";
 import LoginForm from './LoginForm';
-import withAuthentication from "../HOCs/withAuthentication";
 
 class Login extends React.Component {
     state = {

@@ -1,29 +1,20 @@
 import React from 'react';
 
-import {
-    connect
-} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {
-    bindActionCreators
-} from 'redux';
+import { bindActionCreators } from 'redux';
 
-import {
-    withRouter
-} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-import {
-    blankInputError,
-    passwordMismatchError
-} from '../../constants/validationMessages';
+import { blankInputError, passwordMismatchError } from '../../constants/validationMessages';
 
-import {
-    createUserAccount
-} from '../../services/users';
+import { createUserAccount } from '../../services/users';
+
+import withAuthentication from "../HOCs/withAuthentication";
 
 import FormErrorsAlertBox from '../AlertBoxes/FormErrorsAlertBox';
-import SignupForm from './SignUpForm';
-import withAuthentication from "../HOCs/withAuthentication";
+
+import SignUpForm from './SignUpForm';
 
 
 
@@ -58,7 +49,7 @@ class SignUp extends React.Component {
             <div className='col-4 offset-4 mt-5'>
                 { this.hasErrors() ? (<FormErrorsAlertBox errors={this.state.errors} hasErrors={this.hasErrors} removeErrors={this.removeErrors}/>) : '' }
 
-                <SignupForm email={this.state.email} password={this.state.password} confirm_password={this.state.confirm_password} handleSubmit={this.handleSubmit} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} handleConfirmPasswordChange={this.handleConfirmPasswordChange}/>
+                <SignUpForm email={this.state.email} password={this.state.password} confirm_password={this.state.confirm_password} handleSubmit={this.handleSubmit} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} handleConfirmPasswordChange={this.handleConfirmPasswordChange}/>
             </div>
         )
     }
