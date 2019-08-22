@@ -26,10 +26,7 @@ const withAlertMessage = (WrappedComponent) => {
         };
 
         render() {
-            return <WrappedComponent { ...this.state }
-                                     { ...this.props }
-                                     showAlertMessage={ this.showAlertMessage }
-                                     onDismissAlert={ this.onDismiss }/>;
+            return <WrappedComponent { ...this.state } { ...this.props } showAlertMessage={ this.showAlertMessage } onDismissAlert={ this.onDismiss }/>;
         }
     }
 };

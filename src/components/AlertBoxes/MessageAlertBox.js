@@ -1,21 +1,33 @@
-import React from 'react';
+import React from "react";
 
-import {
-    Alert
-} from 'reactstrap';
+import { connect } from "react-redux";
+
+import { Alert } from 'reactstrap';
+
+import {clearNotificationAlert} from "../../redux/actions";
 
 
 class MessageAlertBox extends React.Component {
     render() {
+        const { kind, alertMessage } = this.props.notification;
+
         return (
             <Alert
-                color={this.props.color}
-                isOpen={this.props.visible}
-                toggle={this.props.onDismiss}>
-                {this.props.alertMessage}
+                color={kind}
+                isOpen={alertMessage.length > 0}
+                toggle={this.onDismiss}>
+                {alertMessage}
             </Alert>
         )
     }
+
+    onDismiss = () => {
+        this.props.clearNotificationAlert()
+    }
 }
 
-export default MessageAlertBox;
+const mapStateToProps = ({ notification }) => {
+    return { notification }
+};
+
+export default connect(mapStateToProps, { clearNotificationAlert })(MessageAlertBox);

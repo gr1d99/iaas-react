@@ -9,7 +9,9 @@ import {
     CREATE_USER_SUCCESS,
     NOTIFICATION_ALERT,
     CLEAR_NOTIFICATION_ALERT,
-    CREATE_OPENING_FAILURE
+    CREATE_OPENING_FAILURE,
+    CREATE_OPENING_SUCCESS,
+    CLEAR_OPENING_ERRORS,
 } from './actionTypes';
 
 
@@ -74,6 +76,19 @@ export const createOpeningFailure = (data) => {
     }
 };
 
+export const createOpeningSuccess = (data) => {
+    return {
+        type: CREATE_OPENING_SUCCESS,
+        payload: data
+    }
+};
+
+export const clearOpeningErrors = () => {
+    return dispatch => {
+        dispatch({ type: CLEAR_OPENING_ERRORS })
+    }
+};
+
 export const notificationAlert = ({message, kind}) => {
     return {
         type: NOTIFICATION_ALERT,
@@ -82,9 +97,7 @@ export const notificationAlert = ({message, kind}) => {
     }
 };
 
-export const clearNotificationAlert = () => {
-    return {
-        type: CLEAR_NOTIFICATION_ALERT
-    }
+export const clearNotificationAlert = (dispatch) => {
+    return dispatch => dispatch({ type: CLEAR_NOTIFICATION_ALERT })
 };
 

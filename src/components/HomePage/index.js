@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import withAuthentication from "../HOCs/withAuthentication";
 
 import Admin from "./Admin";
+import withAlertMessage from "../HOCs/withAlertMessage";
 
 class HomePage extends React.Component {
     render() {
@@ -16,8 +17,11 @@ class HomePage extends React.Component {
     }
 }
 
-const mapStateToProps = ({ user }) => {
-    return { user }
+const mapStateToProps = ({ user, notification }) => {
+    return {
+        user,
+        notification
+    }
 };
 
-export default connect(mapStateToProps, null)(withAuthentication(HomePage));
+export default connect(mapStateToProps, null)(withAuthentication(withAlertMessage(HomePage)));

@@ -1,17 +1,26 @@
 import axiosInstance from "."
 
-import { createOpeningFailure, requestFinished, requestStarted } from "../redux/actions";
+import {
+    createOpeningFailure,
+    createOpeningSuccess,
+    notificationAlert,
+    requestFinished,
+    requestStarted
+} from "../redux/actions";
 
-export const createOpening = (data) => {
+export const createOpening = (data, history) => {
     return dispatch => {
         dispatch(requestStarted());
 
-        axiosInstance.post("/openings", { opening: data })
+        return axiosInstance.post("/openings", { opening: data })
             .then((response) => {
+                dispatch(createOpeningSuccess(response.data.data));
                 dispatch(requestFinished());
+                dispatch(notificationAlert({ message: "Opening created successfully", kind: "success"}));
+                history.push("/")
             }).catch((error) => {
+                dispatch(createOpeningFailure(error.response.data));
                 dispatch(requestFinished());
-                dispatch(createOpeningFailure(data));
-        });
+            });
     }
 };

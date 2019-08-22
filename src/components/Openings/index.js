@@ -4,9 +4,12 @@ import { connect } from "react-redux";
 
 import { withRouter } from "react-router-dom";
 
+import { clearOpeningErrors } from "../../redux/actions";
+
 import { createOpening } from "../../services/openings";
 
 import withAuthentication from "../HOCs/withAuthentication";
+
 import OpeningForm from "./OpeningForm";
 
 
@@ -19,7 +22,6 @@ class NewOpening extends React.Component {
         qualifications: "",
         start_date: "",
         end_date: "",
-        errors: null
     };
 
     componentDidMount() {
@@ -52,10 +54,20 @@ class NewOpening extends React.Component {
         }
     }
 
+    render() {
+        const { data } = this.props.opening;
+
+        return (
+            <div>
+                <OpeningForm clearAsyncErrors={this.clearAsyncErrors} data={data} handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange}/>
+            </div>
+        )
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
 
-        this.props.createOpening(this.state)
+        this.props.createOpening(this.state, this.props.history)
     };
 
     handleInputChange = (event) => {
@@ -66,15 +78,20 @@ class NewOpening extends React.Component {
         this.setState(inputData)
     };
 
-    render() {
-        return <div>
-            <OpeningForm handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange}/>
-        </div>
+    clearAsyncErrors = () => {
+        this.props.clearOpeningErrors()
     }
 }
 
 const mapStateToProps = ({ user, opening }) => {
-        return { user, opening }
+        return {
+            user,
+            opening,
+        }
 };
 
-export default connect(mapStateToProps, { createOpening })(withRouter(withAuthentication(NewOpening)));
+export default connect(
+    mapStateToProps, {
+        createOpening,
+        clearOpeningErrors
+    })(withRouter(withAuthentication(NewOpening)));

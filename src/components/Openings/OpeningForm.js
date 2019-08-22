@@ -12,10 +12,17 @@ import {
     Row,
 } from "reactstrap";
 
+import AsyncFormErrors from "../Forms/AsyncFormErrors";
+
 const OpeningForm = (props) => {
     return (
         <Row>
             <Col lg={{ size: 6, offset: 3 }} className="mt-5">
+                {
+                    props.data ? props.data.errors ? (
+                        <AsyncFormErrors color="danger" errors={props.data.errors} clearAsyncErrors={props.clearAsyncErrors}/>
+                    ) : (null) : (null)
+                }
                 <Form onSubmit={props.handleSubmit}>
                     <Row form>
                         <Col md={4}>
@@ -76,6 +83,8 @@ const OpeningForm = (props) => {
 OpeningForm.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     handleInputChange: PropTypes.func.isRequired,
+    clearAsyncErrors: PropTypes.func.isRequired,
+    data: PropTypes.any
 };
 
 export default OpeningForm;
