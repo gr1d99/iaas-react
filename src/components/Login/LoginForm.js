@@ -11,9 +11,9 @@ import {
 } from "reactstrap";
 
 
-const LoginForm = (props) => {
+const LoginForm = ({ email, password, handleInputChange, handleSubmit }) => {
     return (
-        <Form onSubmit={props.handleSubmit}>
+        <Form onSubmit={handleSubmit}>
             <FormGroup>
                 <Label for='id_email'>Email</Label>
                 <Input
@@ -21,8 +21,8 @@ const LoginForm = (props) => {
                     name='email'
                     id='id_email'
                     placeholder='your-email@example.com'
-                    value={props.email}
-                    onChange={props.handleEmailChange} />
+                    value={email}
+                    onChange={handleInputChange} />
             </FormGroup>
 
             <FormGroup>
@@ -31,8 +31,8 @@ const LoginForm = (props) => {
                     type='password'
                     name='password'
                     id='id_password'
-                    value={props.password}
-                    onChange={props.handlePasswordChange}/>
+                    value={password}
+                    onChange={handleInputChange}/>
             </FormGroup>
 
             <Button type='submit'>Sign In</Button>
@@ -41,11 +41,10 @@ const LoginForm = (props) => {
 };
 
 LoginForm.propTypes = {
-    email:                PropTypes.string.isRequired,
-    password:             PropTypes.string.isRequired,
-    handleSubmit:         PropTypes.func.isRequired,
-    handleEmailChange:    PropTypes.func.isRequired,
-    handlePasswordChange: PropTypes.func.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    handleInputChange: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

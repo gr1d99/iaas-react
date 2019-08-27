@@ -4,8 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-import { STATUSES } from "../../redux/actionTypes";
-
 import { createUserSession } from '../../services/sessions';
 
 import { removeLoginErrors } from '../../redux/actions';
@@ -22,26 +20,32 @@ class Login extends React.Component {
     };
 
     componentDidMount() {
-        return this.props.authenticated ? this.props.history.push("/") : null
+        const { authenticated, history } = this.props;
+
+        if (authenticated) { history.push("/") }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const { status } = this.props.user;
+        const { authenticated, history } = this.props;
 
-        if (status === STATUSES.success) {
-            return this.props.authenticated ? this.props.history.push("/") : null
-        }
+        if (authenticated) { history.push("/") }
     }
 
     render() {
+        const { handleSubmit, handleInputChange } = this;
+        const { email, password } = this.state;
+        const { removeLoginErrors } = this.props;
         const { data } = this.props.user;
 
         return (
             <div className="col-md-4 offset-4 mt-5">
+                { data && data.errors ? (
+                    <LoginErrors errors={ data.errors } removeLoginErrors={ removeLoginErrors }/>
+                ) : (
+                    <React.Fragment/>
+                ) }
 
-                { data && data.errors ? <LoginErrors errors={data.errors} removeLoginErrors={this.props.removeLoginErrors}/> : "" }
-
-                <LoginForm email={this.state.email} password={this.state.password} handleSubmit={this.handleSubmit} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange}/>
+                <LoginForm email={ email } password={ password } handleSubmit={ handleSubmit } handleInputChange={ handleInputChange } />
             </div>
         )
     }
@@ -57,29 +61,18 @@ class Login extends React.Component {
 
         this.props.createUserSession(sessionData, cookies);
 
-        this.setState((state) => {
-            return {
-                email: '',
-                password: '',
-                errors: null
-            }
+        this.setState({
+            email: '',
+            password: ''
         })
     };
 
-    handleEmailChange = (event) => {
-        const email = event.target.value;
+    handleInputChange = (event) => {
+        const inputData = {};
 
-        this.setState((state) => {
-            return { email }
-        })
-    };
+        inputData[event.target.name] = event.target.value;
 
-    handlePasswordChange = (event) => {
-        const password = event.target.value;
-
-        this.setState((state) => {
-            return { password }
-        });
+        this.setState(inputData)
     };
 }
 

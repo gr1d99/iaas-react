@@ -24,25 +24,27 @@ import SignUp from "../SignUp";
 
 class App extends React.Component {
     render() {
+        const { cookies, onDismissAlert, alertOptions, showAlertMessage } = this.props;
+
         return (
             <Router>
                 <div className='App'>
-                    <NavigationBar cookies={this.props.cookies}/>
+                    <NavigationBar cookies={ cookies }/>
 
                     <header className='App-header'>
 
                     </header>
 
                     <div className='container-fluid'>
-                        <MessageAlertBox onDismiss={this.props.onDismissAlert} {...this.props.alertOptions}/>
+                        <MessageAlertBox onDismiss={ onDismissAlert } { ...alertOptions }/>
 
-                        <Route path='/' exact component={HomePage} />
+                        <Route path='/' exact component={ HomePage } />
 
-                        <Route path='/sign_in' render={() => <Login cookies={this.props.cookies} />} />
+                        <Route path='/sign_in' render={() => <Login cookies={ cookies } />} />
 
-                        <Route path='/sign_up' render={() => <SignUp cookies={this.props.cookies} />} />
+                        <Route path='/sign_up' render={() => <SignUp cookies={ cookies } />} />
 
-                        <Route path="/openings/new" exact render={() => <NewOpening showAlertMessage={this.props.showAlertMessage}/>}/>
+                        <Route path="/openings/new" exact render={() => <NewOpening showAlertMessage={ showAlertMessage }/>}/>
 
                         <Route path="/openings" exact component={OpeningList}/>
                     </div>
