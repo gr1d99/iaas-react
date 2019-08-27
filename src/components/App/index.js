@@ -18,7 +18,8 @@ import HomePage from '../HomePage';
 import Login from '../Login'
 import MessageAlertBox from "../AlertBoxes/MessageAlertBox";
 import NavigationBar from './../NavigationBar';
-import NewOpening from "../Openings"
+import NewOpening from "../Openings/Create"
+import OpeningList from "../Openings/List/";
 import SignUp from "../SignUp";
 
 class App extends React.Component {
@@ -41,8 +42,10 @@ class App extends React.Component {
 
                         <Route path='/sign_up' render={() => <SignUp cookies={this.props.cookies} />} />
 
+                        <Route path="/openings" exact component={OpeningList}/>
+
                         <Route path="/openings/new" render={() => <NewOpening showAlertMessage={this.props.showAlertMessage}/>}/>
-                    </div>
+                        </div>
                 </div>
             </Router>
         );

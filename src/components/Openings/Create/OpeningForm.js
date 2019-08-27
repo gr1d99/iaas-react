@@ -12,7 +12,7 @@ import {
     Row,
 } from "reactstrap";
 
-import AsyncFormErrors from "../Forms/AsyncFormErrors";
+import AsyncFormErrors from "../../Forms/AsyncFormErrors";
 
 const OpeningForm = (props) => {
     return (

@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 
 import { withRouter } from "react-router-dom";
 
-import { clearOpeningErrors } from "../../redux/actions";
+import { clearOpeningErrors } from "../../../redux/actions";
 
-import { createOpening } from "../../services/openings";
+import { createOpening } from "../../../services/openings";
 
-import withAuthentication from "../HOCs/withAuthentication";
+import withAuthentication from "../../HOCs/withAuthentication";
 
 import OpeningForm from "./OpeningForm";
 

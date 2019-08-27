@@ -1,15 +1,19 @@
-import {CLEAR_OPENING_ERRORS, CREATE_OPENING_FAILURE, CREATE_OPENING_SUCCESS} from "../actionTypes";
+import {CLEAR_OPENING_ERRORS, CREATE_OPENING_FAILURE, CREATE_OPENING_SUCCESS, ALL_OPENINGS} from "../actionTypes";
 
 const initialState = {};
 
 export default (state = initialState, action) => {
-    switch (action.type) {
+    const { type, payload } = action;
+
+    switch (type) {
         case CREATE_OPENING_SUCCESS:
             return Object.assign(state, { data: action.payload });
         case CREATE_OPENING_FAILURE:
             return Object.assign(state, { data: action.payload });
         case CLEAR_OPENING_ERRORS:
             return {};
+        case ALL_OPENINGS:
+            return { ...state, ...payload };
         default:
             return state;
     }
