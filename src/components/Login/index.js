@@ -4,21 +4,21 @@ import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-import { blankInputError } from '../../constants/validationMessages';
-
 import { STATUSES } from "../../redux/actionTypes";
 
 import { createUserSession } from '../../services/sessions';
 
+import { removeLoginErrors } from '../../redux/actions';
+
 import withAuthentication from "../HOCs/withAuthentication";
-import FormErrorsAlertBox from "../AlertBoxes/FormErrorsAlertBox";
+
 import LoginForm from './LoginForm';
+import LoginErrors from "./LoginErrors";
 
 class Login extends React.Component {
     state = {
         email: '',
         password: '',
-        errors: null
     };
 
     componentDidMount() {
@@ -28,40 +28,20 @@ class Login extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { status } = this.props.user;
 
-        if (status === STATUSES.failure ) {
-            const { errors } = this.props.user.data;
-
-            if (errors !== prevProps.user.data.errors) {
-                this.setState((state) => {
-                    return {
-                        errors: { '_auth': this.props.user.data.errors }
-                    }
-                })
-            }
-        }
-
         if (status === STATUSES.success) {
             return this.props.authenticated ? this.props.history.push("/") : null
         }
     }
 
     render() {
+        const { data } = this.props.user;
+
         return (
             <div className="col-md-4 offset-4 mt-5">
-                { this.hasErrors() ? (
-                    <FormErrorsAlertBox
-                        errors={this.state.errors}
-                        hasErrors={this.hasErrors}
-                        removeErrors={this.removeErrors}/>
-                ): (
-                    ''
-                )}
-                <LoginForm
-                    email={this.state.email}
-                    password={this.state.password}
-                    handleSubmit={this.handleSubmit}
-                    handleEmailChange={this.handleEmailChange}
-                    handlePasswordChange={this.handlePasswordChange}/>
+
+                { data && data.errors ? <LoginErrors errors={data.errors} removeLoginErrors={this.props.removeLoginErrors}/> : "" }
+
+                <LoginForm email={this.state.email} password={this.state.password} handleSubmit={this.handleSubmit} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange}/>
             </div>
         )
     }
@@ -70,39 +50,20 @@ class Login extends React.Component {
         event.preventDefault();
 
         const { email, password } = this.state;
-        const errors              = {};
 
-        if(email.length <= 0) {
-            errors['email'] = blankInputError;
-        }
+        const sessionData = { session: { email, password } };
 
-        if(password.length <= 0) {
-            errors['password'] = blankInputError
-        }
+        const { cookies } = this.props;
 
-        if(Object.keys(errors).length > 0) {
-            this.setState((state) => {
-                return { errors }
-            })
-        }
+        this.props.createUserSession(sessionData, cookies);
 
-        if(!Object.keys(errors).length > 0) {
-            const sessionData = { session: { email, password } };
-
-            this.props.dispatch(
-                this.props.createUserSession(
-                    sessionData,
-                    this.props.cookies
-                )
-            );
-            this.setState((state) => {
-                return {
-                    email: '',
-                    password: '',
-                    errors: null
-                }
-            })
-        }
+        this.setState((state) => {
+            return {
+                email: '',
+                password: '',
+                errors: null
+            }
+        })
     };
 
     handleEmailChange = (event) => {
@@ -120,26 +81,14 @@ class Login extends React.Component {
             return { password }
         });
     };
-
-    hasErrors = () => {
-        if (!!this.state.errors) {
-            return Object.entries(this.state.errors).length > 0;
-        }
-
-        return false
-    };
-
-    removeErrors = () => {
-        this.setState((state) => {
-            return { errors: {} }
-        })
-    };
 }
 
 const mapStateToProps = ({ user }, ownProps) => {
     return { user, cookies: ownProps.cookies }
 };
 
-const mapDispatchToProps = (dispatch) => ({ createUserSession, dispatch });
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withAuthentication(Login)));
+export default connect(
+    mapStateToProps, {
+        createUserSession,
+        removeLoginErrors
+    })(withRouter(withAuthentication(Login)));

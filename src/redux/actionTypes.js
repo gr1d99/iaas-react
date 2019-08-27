@@ -11,6 +11,8 @@ export const CLEAR_OPENING_ERRORS     = 'CLEAR_OPENING_ERRORS';
 export const ALL_OPENINGS             = 'ALL_OPENINGS';
 export const NOTIFICATION_ALERT       = 'NOTIFICATION_ALERT';
 export const CLEAR_NOTIFICATION_ALERT = 'CLEAR_NOTIFICATION_ALERT';
+export const REMOVE_LOGIN_ERRORS      = 'REMOVE_LOGIN_ERRORS';
+export const REMOVE_CREATE_USER_ACCOUNT_ERRORS = 'REMOVE_CREATE_USER_ACCOUNT_ERRORS';
 export const STATUSES = {
     success: 'success',
     failure: 'failure',

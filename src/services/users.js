@@ -21,23 +21,26 @@ export const createUserAccount = (userData, cookies) => {
             '/users',
             { user: userData }
         ).then((response) => {
-            const userJwt = response.headers['x-access-token'];
+            const jwtToken = response.headers['x-access-token'];
             const notificationData = {
                 message: USERS.created,
-                kind:    NOTIFICATION_KINDS.success
+                kind: NOTIFICATION_KINDS.success
             };
+            const { data } = response.data;
 
-            cookies.set('jwtToken', userJwt);
+            cookies.set("jwtToken", jwtToken);
 
             dispatch(requestFinished());
-            dispatch(createUserSuccess({ data: response.data, jwtToken: userJwt }));
+
+            dispatch(createUserSuccess(data, jwtToken));
+
             dispatch(notificationAlert(notificationData))
         }).catch((error) => {
             switch (error.response.status) {
                 case 422:
-                    const { errors } = error.response.data;
+                    const { data } = error.response;
 
-                    dispatch(createUserFailure(errors));
+                    dispatch(createUserFailure(data));
 
                     break;
                 default:

@@ -11,7 +11,10 @@ import {
     CLEAR_NOTIFICATION_ALERT,
     CREATE_OPENING_FAILURE,
     CREATE_OPENING_SUCCESS,
-    CLEAR_OPENING_ERRORS, ALL_OPENINGS,
+    CLEAR_OPENING_ERRORS,
+    ALL_OPENINGS,
+    REMOVE_LOGIN_ERRORS,
+    REMOVE_CREATE_USER_ACCOUNT_ERRORS
 } from './actionTypes';
 
 
@@ -27,21 +30,31 @@ export const requestFinished = () => {
     }
 };
 
-export const loginSuccess = (opts) => {
+export const loginSuccess = (data, jwtToken) => {
     return {
-        type:     LOGIN_SUCCESS,
-        status:   STATUSES.success,
-        data:     opts.data,
-        jwtToken: opts.jwtToken
+        type: LOGIN_SUCCESS,
+        payload: {
+            status:   STATUSES.success,
+            data,
+            jwtToken
+        },
     }
 };
 
-export const loginFailure = (opts) => {
+export const loginFailure = (data, jwtToken) => {
     return {
-        type:     LOGIN_FAILURE,
-        status:   STATUSES.failure,
-        data:     opts.data,
-        jwtToken: opts.jwtToken
+        type: LOGIN_FAILURE,
+        payload: {
+            status: STATUSES.failure,
+            data,
+            jwtToken
+        }
+    }
+};
+
+export const removeLoginErrors = () => {
+    return dispatch => {
+        dispatch({ type: REMOVE_LOGIN_ERRORS, payload: { jwtToken: null } })
     }
 };
 
@@ -52,20 +65,24 @@ export const logoutSuccess = () => {
     }
 };
 
-export const createUserFailure = (errors) => {
+export const createUserFailure = (data) => {
     return {
-        type:             CREATE_USER_FAILURE,
-        createUserErrors: errors,
-        status:           STATUSES.failure
+        type: CREATE_USER_FAILURE,
+        payload: {
+            data,
+            status: STATUSES.failure,
+        }
     }
 };
 
-export const createUserSuccess = (opts) => {
+export const createUserSuccess = (data, jwtToken) => {
     return {
-        type:     CREATE_USER_SUCCESS,
-        status:   STATUSES.success,
-        data:     opts.data,
-        jwtToken: opts.jwtToken
+        type: CREATE_USER_SUCCESS,
+        payload: {
+            status: STATUSES.success,
+            data,
+            jwtToken
+        }
     }
 };
 
@@ -73,6 +90,15 @@ export const createOpeningFailure = (data) => {
     return {
         type: CREATE_OPENING_FAILURE,
         payload: data
+    }
+};
+
+export const removeCreateUserAccountErrors = () => {
+    return dispatch => {
+        return dispatch({
+            type: REMOVE_CREATE_USER_ACCOUNT_ERRORS,
+            payload: {}
+        })
     }
 };
 

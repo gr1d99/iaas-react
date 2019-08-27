@@ -1,12 +1,16 @@
 import React from "react";
 
+import PropTypes from "prop-types";
+
 import { Alert } from "reactstrap";
 
 
 class AsyncFormErrors extends React.Component {
     render() {
+        const { color, clearAsyncErrors, errors } = this.props;
+
         return (
-            <Alert color={ this.props.color } isOpen={ !!this.props.errors } toggle={ this.props.clearAsyncErrors }>
+            <Alert color={ color } isOpen={ !!errors } toggle={ clearAsyncErrors }>
                 <ul>{ this.renderErrorLists() }</ul>
             </Alert>
         )
@@ -22,5 +26,12 @@ class AsyncFormErrors extends React.Component {
         });
     };
 }
+
+AsyncFormErrors.propTypes = {
+    color: PropTypes.string.isRequired,
+    clearAsyncErrors: PropTypes.func.isRequired,
+    errors: PropTypes.any.isRequired
+};
+
 
 export default AsyncFormErrors;

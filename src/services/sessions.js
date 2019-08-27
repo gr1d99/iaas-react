@@ -27,20 +27,19 @@ export const createUserSession = (sessionData, cookies) => {
                     message:   SESSIONS.created,
                     kind:      NOTIFICATION_KINDS.success
                 };
+                const { data } = response.data;
 
                 cookies.set('jwtToken', userJwt);
 
                 dispatch(requestFinished());
-                dispatch(loginSuccess({data: response.data, jwtToken: userJwt }));
+
+                dispatch(loginSuccess(data, userJwt));
+
                 dispatch(notificationAlert(notificationData))
             }).catch((error) => {
                 dispatch(requestFinished());
-                dispatch(loginFailure(
-                    {
-                        data:     error.response.data,
-                        jwtToken: null,
-                    })
-                )
+
+                dispatch(loginFailure(error.response.data, null))
             })
     }
 };

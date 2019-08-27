@@ -2,20 +2,15 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { bindActionCreators } from 'redux';
-
 import { withRouter } from 'react-router-dom';
 
-import { blankInputError, passwordMismatchError } from '../../constants/validationMessages';
-
 import { createUserAccount } from '../../services/users';
+import { removeCreateUserAccountErrors } from "./../../redux/actions";
 
 import withAuthentication from "../HOCs/withAuthentication";
 
-import FormErrorsAlertBox from '../AlertBoxes/FormErrorsAlertBox';
-
 import SignUpForm from './SignUpForm';
-
+import AsyncFormErrors from "../Forms/AsyncFormErrors";
 
 
 class SignUp extends React.Component {
@@ -23,33 +18,35 @@ class SignUp extends React.Component {
         email: '',
         password: '',
         confirm_password: '',
-        errors: null
     };
 
     componentDidMount() {
-        return this.props.authenticated ? this.props.history.push("/") : null
+        const { authenticated, history } = this.props;
+
+        if (authenticated) {
+            history.push("/")
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const { createUserErrors } = this.props.user;
+        const { authenticated, history } = this.props;
 
-        if (prevProps.user.createUserErrors !== createUserErrors) {
-            this.setState((state) => {
-                return {
-                    errors: Object.values(createUserErrors)
-                }
-            })
+        if (authenticated) {
+            history.push("/")
         }
-
-        return this.props.authenticated ? this.props.history.push("/") : null
     }
 
     render() {
+        const { data } = this.props.user;
+        const { removeCreateUserAccountErrors } = this.props;
+
         return (
             <div className='col-4 offset-4 mt-5'>
-                { this.hasErrors() ? (<FormErrorsAlertBox errors={this.state.errors} hasErrors={this.hasErrors} removeErrors={this.removeErrors}/>) : '' }
+
+                { data && data.errors ? <AsyncFormErrors color="danger" clearAsyncErrors={ removeCreateUserAccountErrors } errors={ data.errors }/> : "" }
 
                 <SignUpForm email={this.state.email} password={this.state.password} confirm_password={this.state.confirm_password} handleSubmit={this.handleSubmit} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} handleConfirmPasswordChange={this.handleConfirmPasswordChange}/>
+
             </div>
         )
     }
@@ -57,42 +54,11 @@ class SignUp extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        const { email, password, confirm_password } = this.state;
+        const { email, password } = this.state;
 
-        const errors = {};
+        const { cookies } = this.props;
 
-        if(email.length <= 0) {
-            errors['email'] = blankInputError;
-        }
-
-        if(password.length <= 0) {
-            errors['password'] = blankInputError
-        }
-
-        if(confirm_password.length <= 0) {
-            errors['confirm_password'] = blankInputError;
-        }
-
-        if(password.length > 0 && confirm_password.length > 0) {
-            if(password !== confirm_password) {
-                errors['_passwords'] = passwordMismatchError
-            }
-        }
-
-        if(Object.keys(errors).length > 0) {
-            this.setState((state) => {
-                return { errors }
-            })
-        }
-
-        if(!Object.keys(errors).length > 0) {
-            const { email }    = this.state;
-            const { password } = this.state;
-            const newUserData  = { email, password };
-            const { cookies }  = this.props;
-
-            this.props.createUserAccount(newUserData, cookies);
-        }
+        this.props.createUserAccount({ email, password }, cookies);
     };
 
     handleEmailChange = (event) => {
@@ -121,30 +87,14 @@ class SignUp extends React.Component {
             };
         })
     };
-
-    hasErrors = () => {
-        if (!!this.state.errors) {
-            return Object.entries(this.state.errors).length > 0;
-        }
-
-        return false
-    };
-
-    removeErrors = () => {
-        this.setState((state) => {
-            return {
-                errors: {}
-            }
-        })
-    };
 }
 
 const mapStateToProps = ({ user }) => {
     return { user }
 };
 
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ createUserAccount }, dispatch)
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withAuthentication(SignUp)));
+export default connect(
+    mapStateToProps, {
+        createUserAccount,
+        removeCreateUserAccountErrors
+    })(withRouter(withAuthentication(SignUp)));
