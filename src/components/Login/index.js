@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 
 import { withRouter } from 'react-router-dom';
 
@@ -13,12 +13,8 @@ import withAuthentication from "../HOCs/withAuthentication";
 import LoginForm from './LoginForm';
 import LoginErrors from "./LoginErrors";
 
-class Login extends React.Component {
-    state = {
-        email: '',
-        password: '',
-    };
 
+class Login extends React.Component {
     componentDidMount() {
         const { authenticated, history } = this.props;
 
@@ -32,9 +28,7 @@ class Login extends React.Component {
     }
 
     render() {
-        const { handleSubmit, handleInputChange } = this;
-        const { email, password } = this.state;
-        const { removeLoginErrors } = this.props;
+        const { removeLoginErrors, cookies } = this.props;
         const { data } = this.props.user;
 
         return (
@@ -45,35 +39,10 @@ class Login extends React.Component {
                     <React.Fragment/>
                 ) }
 
-                <LoginForm email={ email } password={ password } handleSubmit={ handleSubmit } handleInputChange={ handleInputChange } />
+                <LoginForm authenticateUser={ this.props.createUserSession } cookies={ cookies }/>
             </div>
         )
     }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-
-        const { email, password } = this.state;
-
-        const sessionData = { session: { email, password } };
-
-        const { cookies } = this.props;
-
-        this.props.createUserSession(sessionData, cookies);
-
-        this.setState({
-            email: '',
-            password: ''
-        })
-    };
-
-    handleInputChange = (event) => {
-        const inputData = {};
-
-        inputData[event.target.name] = event.target.value;
-
-        this.setState(inputData)
-    };
 }
 
 const mapStateToProps = ({ user }, ownProps) => {

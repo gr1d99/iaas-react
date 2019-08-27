@@ -14,9 +14,8 @@ import {
 
 
 export const createUserSession = (sessionData, cookies) => {
-
     return (dispatch) => {
-        return axiosInstance.post('/sessions', sessionData)
+        return axiosInstance.post('/sessions', { session: { ...sessionData }})
             .then((response) => {
                 const { data } = response.data;
 
