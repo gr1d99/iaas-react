@@ -18,14 +18,12 @@ export const createUserSession = (sessionData, cookies) => {
         return axiosInstance.post('/sessions', { session: { ...sessionData }})
             .then((response) => {
                 const { data } = response.data;
-
                 const userJwt = response.headers['x-access-token'];
                 const notificationData = { message: SESSIONS.created, kind: NOTIFICATION_KINDS.success };
 
                 cookies.set('jwtToken', userJwt);
 
                 dispatch(loginSuccess(data, userJwt));
-
                 dispatch(notificationAlert(notificationData))
             }).catch((error) => {
                 dispatch(loginFailure(error.response.data, null))

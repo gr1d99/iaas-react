@@ -2,8 +2,6 @@ import { Cookies } from 'react-cookie';
 
 import {
     LOGIN_FAILURE,
-    REQUEST_STARTED,
-    REQUEST_DONE,
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
     CREATE_USER_FAILURE,
@@ -23,20 +21,6 @@ const user = (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case REQUEST_STARTED:
-            return Object.assign({},
-                state,
-                {
-                    status: action.status
-                });
-
-        case REQUEST_DONE:
-            return Object.assign({},
-                state,
-                {
-                    status: action.status
-                });
-
         case LOGIN_SUCCESS:
             return { ...state, ...payload };
 
@@ -44,15 +28,10 @@ const user = (state = initialState, action) => {
             return { ...state, ...payload };
 
         case REMOVE_LOGIN_ERRORS:
-            return {};
+            return initialState;
 
         case LOGOUT_SUCCESS:
-            return Object.assign({},
-                state,
-                {
-                    jwtToken: null,
-                    data:     {}
-                });
+            return initialState;
 
         case CREATE_USER_FAILURE:
             return { ...state, ...payload };

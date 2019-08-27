@@ -60,8 +60,8 @@ export const removeLoginErrors = () => {
 
 export const logoutSuccess = () => {
     return {
-        type:   LOGOUT_SUCCESS,
-        status: STATUSES.success
+        type: LOGOUT_SUCCESS,
+        payload: {}
     }
 };
 
