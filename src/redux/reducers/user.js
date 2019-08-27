@@ -10,28 +10,26 @@ import {
     REMOVE_CREATE_USER_ACCOUNT_ERRORS,
 } from './../actionTypes';
 
-
 const cookies = new Cookies();
 
-const initialState = {
-    jwtToken: null || cookies.get('jwtToken'),
-};
+const initialState = {};
 
 const user = (state = initialState, action) => {
     const { type, payload } = action;
+    const jwtToken = cookies.get("jwtToken");
 
     switch (type) {
         case LOGIN_SUCCESS:
-            return { ...state, ...payload };
+            return { ...state, jwtToken };
 
         case LOGIN_FAILURE:
-            return { ...state, ...payload };
+            return { ...state, jwtToken, ...payload };
 
         case REMOVE_LOGIN_ERRORS:
             return initialState;
 
         case LOGOUT_SUCCESS:
-            return initialState;
+            return { ...initialState, jwtToken, ...payload };
 
         case CREATE_USER_FAILURE:
             return { ...state, ...payload };

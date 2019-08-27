@@ -30,26 +30,12 @@ export const requestFinished = () => {
     }
 };
 
-export const loginSuccess = (data, jwtToken) => {
-    return {
-        type: LOGIN_SUCCESS,
-        payload: {
-            status:   STATUSES.success,
-            data,
-            jwtToken
-        },
-    }
+export const loginSuccess = () => {
+    return { type: LOGIN_SUCCESS, payload: {} }
 };
 
-export const loginFailure = (data, jwtToken) => {
-    return {
-        type: LOGIN_FAILURE,
-        payload: {
-            status: STATUSES.failure,
-            data,
-            jwtToken
-        }
-    }
+export const loginFailure = (data) => {
+    return { type: LOGIN_FAILURE, payload: { data } }
 };
 
 export const removeLoginErrors = () => {
@@ -59,20 +45,11 @@ export const removeLoginErrors = () => {
 };
 
 export const logoutSuccess = () => {
-    return {
-        type: LOGOUT_SUCCESS,
-        payload: {}
-    }
+    return { type: LOGOUT_SUCCESS, payload: {} }
 };
 
 export const createUserFailure = (data) => {
-    return {
-        type: CREATE_USER_FAILURE,
-        payload: {
-            data,
-            status: STATUSES.failure,
-        }
-    }
+    return { type: CREATE_USER_FAILURE, payload: { data, status: STATUSES.failure }}
 };
 
 export const createUserSuccess = (data, jwtToken) => {

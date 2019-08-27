@@ -22,10 +22,7 @@ export const createUserAccount = (userData, cookies) => {
             { user: userData }
         ).then((response) => {
             const jwtToken = response.headers['x-access-token'];
-            const notificationData = {
-                message: USERS.created,
-                kind: NOTIFICATION_KINDS.success
-            };
+            const notificationData = { message: USERS.created, kind: NOTIFICATION_KINDS.success };
             const { data } = response.data;
 
             cookies.set("jwtToken", jwtToken);
