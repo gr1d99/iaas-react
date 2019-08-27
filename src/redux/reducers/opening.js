@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case CREATE_OPENING_SUCCESS:
-            return Object.assign(state, { data: action.payload });
+            return { ...state, ...payload };
         case CREATE_OPENING_FAILURE:
             return Object.assign(state, { data: action.payload });
         case CLEAR_OPENING_ERRORS:

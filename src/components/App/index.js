@@ -42,10 +42,10 @@ class App extends React.Component {
 
                         <Route path='/sign_up' render={() => <SignUp cookies={this.props.cookies} />} />
 
-                        <Route path="/openings" exact component={OpeningList}/>
+                        <Route path="/openings/new" exact render={() => <NewOpening showAlertMessage={this.props.showAlertMessage}/>}/>
 
-                        <Route path="/openings/new" render={() => <NewOpening showAlertMessage={this.props.showAlertMessage}/>}/>
-                        </div>
+                        <Route path="/openings" exact component={OpeningList}/>
+                    </div>
                 </div>
             </Router>
         );

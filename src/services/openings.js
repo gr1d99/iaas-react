@@ -14,12 +14,18 @@ export const createOpening = (data, history) => {
 
         return axiosInstance.post("/openings", { opening: data })
             .then((response) => {
-                dispatch(createOpeningSuccess(response));
+                const { data } = response.data;
+
+                dispatch(createOpeningSuccess(data));
+
                 dispatch(requestFinished());
+
                 dispatch(notificationAlert({ message: "Opening created successfully", kind: "success"}));
+
                 history.push("/")
             }).catch((error) => {
                 dispatch(createOpeningFailure(error.response.data));
+
                 dispatch(requestFinished());
             });
     }
