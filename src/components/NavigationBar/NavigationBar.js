@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useRedirectWhenAuthenticated from "../../hooks/useRedirectWhenAuthenticated";
 
 const NavigationBar = (props) => {
+    const { cookies } = props;
     const [isOpen, setIsOpen] = React.useState(false);
 
     const toggleNavBar = () => {
@@ -21,7 +22,7 @@ const NavigationBar = (props) => {
     };
 
     const logoutUser = () => {
-        props.destroySession(props.cookies)
+        props.destroySession(cookies)
     };
 
     const authenticatedLinks = () => {

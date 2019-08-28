@@ -6,7 +6,7 @@ import { Alert } from "reactstrap";
 
 import randomStringGenerator from "./../../helpers/randomStringGenerator";
 
-const LoginErrors = (props) => {
+const SignInErrors = (props) => {
     const { errors, removeLoginErrors } = props;
 
     return (
@@ -18,9 +18,9 @@ const LoginErrors = (props) => {
     )
 };
 
-LoginErrors.propTypes = {
+SignInErrors.propTypes = {
     errors: PropTypes.array.isRequired,
     removeLoginErrors: PropTypes.func.isRequired
 };
 
-export default LoginErrors;
+export default SignInErrors;

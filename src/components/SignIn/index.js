@@ -8,10 +8,8 @@ import { createUserSession } from '../../services/sessions';
 
 import { removeLoginErrors } from '../../redux/actions';
 
-import withAuthentication from "../HOCs/withAuthentication";
-
-import LoginForm from './LoginForm';
-import LoginErrors from "./LoginErrors";
+import SignInForm from './SignInForm';
+import SignInErrors from "./SignInErrors";
 
 import useRedirectWhenAuthenticated from "../../hooks/useRedirectWhenAuthenticated";
 
@@ -29,12 +27,12 @@ const Login = (props) => {
     return (
         <div className="col-md-4 offset-4 mt-5">
             { data && data.errors ? (
-                <LoginErrors errors={ data.errors } removeLoginErrors={ removeLoginErrors }/>
+                <SignInErrors errors={ data.errors } removeLoginErrors={ removeLoginErrors }/>
             ) : (
                 <React.Fragment/>
             ) }
 
-            <LoginForm authenticateUser={ createUserSession } cookies={ cookies }/>
+            <SignInForm authenticateUser={ createUserSession } cookies={ cookies }/>
         </div>
     )
 };

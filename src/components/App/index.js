@@ -15,7 +15,7 @@ import '../Icons';
 
 import withAlertMessage from "../HOCs/withAlertMessage"
 import HomePage from '../HomePage';
-import Login from '../Login'
+import Login from '../SignIn'
 import MessageAlertBox from "../AlertBoxes/MessageAlertBox";
 import NavigationBar from './../NavigationBar';
 import NewOpening from "../Openings/Create"

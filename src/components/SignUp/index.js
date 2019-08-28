@@ -7,8 +7,6 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { createUserAccount } from '../../services/users';
 import { removeCreateUserAccountErrors } from "./../../redux/actions";
 
-import withAuthentication from "../HOCs/withAuthentication";
-
 import SignUpForm from './SignUpForm';
 import AsyncFormErrors from "../Forms/AsyncFormErrors";
 

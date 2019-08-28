@@ -12,7 +12,7 @@ import {
 
 import useAuthForm from "./../../hooks/useAuthForm";
 
-const LoginForm = ({ authenticateUser, cookies }) => {
+const SignInForm = ({ authenticateUser, cookies }) => {
     const defaultValues = { email: "", password: "" };
     const { values, handleSubmit, handleInputChange } = useAuthForm(defaultValues, cookies, authenticateUser);
     const { email, password } = values;
@@ -34,9 +34,9 @@ const LoginForm = ({ authenticateUser, cookies }) => {
     )
 };
 
-LoginForm.propTypes = {
+SignInForm.propTypes = {
     authenticateUser: PropTypes.func.isRequired,
     cookies: PropTypes.object.isRequired,
 };
 
-export default LoginForm;
+export default SignInForm;
