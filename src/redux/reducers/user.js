@@ -7,7 +7,7 @@ import {
     CREATE_USER_FAILURE,
     CREATE_USER_SUCCESS,
     REMOVE_LOGIN_ERRORS,
-    REMOVE_CREATE_USER_ACCOUNT_ERRORS,
+    REMOVE_USER_ERRORS,
 } from './../actionTypes';
 
 const cookies = new Cookies();
@@ -35,9 +35,9 @@ const user = (state = initialState, action) => {
             return { ...state, ...payload };
 
         case CREATE_USER_SUCCESS:
-            return { ...state, ...payload };
+            return { ...state, jwtToken, ...payload };
 
-        case REMOVE_CREATE_USER_ACCOUNT_ERRORS:
+        case REMOVE_USER_ERRORS:
             return initialState;
 
         default:

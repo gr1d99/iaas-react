@@ -4,7 +4,6 @@ import {
     LOGOUT_SUCCESS,
     REQUEST_STARTED,
     REQUEST_DONE,
-    STATUSES,
     CREATE_USER_FAILURE,
     CREATE_USER_SUCCESS,
     NOTIFICATION_ALERT,
@@ -14,7 +13,7 @@ import {
     CLEAR_OPENING_ERRORS,
     ALL_OPENINGS,
     REMOVE_LOGIN_ERRORS,
-    REMOVE_CREATE_USER_ACCOUNT_ERRORS
+    REMOVE_USER_ERRORS
 } from './actionTypes';
 
 
@@ -49,17 +48,13 @@ export const logoutSuccess = () => {
 };
 
 export const createUserFailure = (data) => {
-    return { type: CREATE_USER_FAILURE, payload: { data, status: STATUSES.failure }}
+    return { type: CREATE_USER_FAILURE, payload: { data }}
 };
 
-export const createUserSuccess = (data, jwtToken) => {
+export const createUserSuccess = () => {
     return {
         type: CREATE_USER_SUCCESS,
-        payload: {
-            status: STATUSES.success,
-            data,
-            jwtToken
-        }
+        payload: {}
     }
 };
 
@@ -73,7 +68,7 @@ export const createOpeningFailure = (data) => {
 export const removeCreateUserAccountErrors = () => {
     return dispatch => {
         return dispatch({
-            type: REMOVE_CREATE_USER_ACCOUNT_ERRORS,
+            type: REMOVE_USER_ERRORS,
             payload: {}
         })
     }

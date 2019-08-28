@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useLoginForm = (defaultValues, cookies, callback) => {
+const useAuthForm = (defaultValues, cookies, callback) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         callback(values, cookies);
@@ -13,17 +13,11 @@ const useLoginForm = (defaultValues, cookies, callback) => {
         setValues({ ...values, [name]: value })
     };
 
-    const resetValues = () => {
-        setValues({ ...values, ...defaultValues })
-    };
+    const resetValues = () => { setValues({ ...values, ...defaultValues }) };
 
     const [values, setValues] = useState(defaultValues);
 
-    return {
-        handleSubmit,
-        handleInputChange,
-        values
-    }
+    return { handleSubmit, handleInputChange, values }
 };
 
-export default useLoginForm;
+export default useAuthForm;

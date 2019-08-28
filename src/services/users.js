@@ -4,8 +4,6 @@ import {
     createUserFailure,
     createUserSuccess,
     notificationAlert,
-    requestFinished,
-    requestStarted
 } from "../redux/actions";
 
 import {
@@ -15,7 +13,6 @@ import {
 
 export const createUserAccount = (userData, cookies) => {
     return dispatch => {
-        dispatch(requestStarted());
 
         return axios.post(
             '/users',
@@ -23,14 +20,10 @@ export const createUserAccount = (userData, cookies) => {
         ).then((response) => {
             const jwtToken = response.headers['x-access-token'];
             const notificationData = { message: USERS.created, kind: NOTIFICATION_KINDS.success };
-            const { data } = response.data;
 
             cookies.set("jwtToken", jwtToken);
 
-            dispatch(requestFinished());
-
-            dispatch(createUserSuccess(data, jwtToken));
-
+            dispatch(createUserSuccess());
             dispatch(notificationAlert(notificationData))
         }).catch((error) => {
             switch (error.response.status) {
@@ -38,8 +31,7 @@ export const createUserAccount = (userData, cookies) => {
                     const { data } = error.response;
 
                     dispatch(createUserFailure(data));
-
-                    break;
+                    return;
                 default:
                     dispatch(createUserFailure(error));
             }

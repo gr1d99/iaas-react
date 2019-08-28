@@ -14,12 +14,6 @@ import AsyncFormErrors from "../Forms/AsyncFormErrors";
 
 
 class SignUp extends React.Component {
-    state = {
-        email: '',
-        password: '',
-        confirm_password: '',
-    };
-
     componentDidMount() {
         const { authenticated, history } = this.props;
 
@@ -37,61 +31,24 @@ class SignUp extends React.Component {
     }
 
     render() {
+        const { cookies, createUserAccount, removeCreateUserAccountErrors } = this.props;
         const { data } = this.props.user;
-        const { removeCreateUserAccountErrors } = this.props;
 
         return (
             <div className='col-4 offset-4 mt-5'>
+                { data && data.errors ? (
+                    <AsyncFormErrors color="danger" clearAsyncErrors={ removeCreateUserAccountErrors } errors={ data.errors }/>
+                ) : (
+                    <React.Fragment/>
+                ) }
 
-                { data && data.errors ? <AsyncFormErrors color="danger" clearAsyncErrors={ removeCreateUserAccountErrors } errors={ data.errors }/> : "" }
-
-                <SignUpForm email={this.state.email} password={this.state.password} confirm_password={this.state.confirm_password} handleSubmit={this.handleSubmit} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} handleConfirmPasswordChange={this.handleConfirmPasswordChange}/>
-
+                <SignUpForm cookies={ cookies } createUserAccount={ createUserAccount }/>
             </div>
         )
     }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-
-        const { email, password } = this.state;
-
-        const { cookies } = this.props;
-
-        this.props.createUserAccount({ email, password }, cookies);
-    };
-
-    handleEmailChange = (event) => {
-        const email = event.target.value;
-        this.setState((state) => {
-            return {
-                email,
-            };
-        })
-    };
-
-    handlePasswordChange = (event) => {
-        const password = event.target.value;
-        this.setState((state) => {
-            return {
-                password,
-            };
-        })
-    };
-
-    handleConfirmPasswordChange = (event) => {
-        const confirm_password = event.target.value;
-        this.setState((state) => {
-            return {
-                confirm_password,
-            };
-        })
-    };
 }
 
-const mapStateToProps = ({ user }) => {
-    return { user }
-};
+const mapStateToProps = ({ user }) => ({ user });
 
 export default connect(
     mapStateToProps, {

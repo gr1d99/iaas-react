@@ -10,18 +10,25 @@ import {
     Label
 } from "reactstrap";
 
+import useAuthForm from "../../hooks/useAuthForm";
 
-const SignupForm = (props) => {
+
+const SignUpForm = (props) => {
+    const { cookies, createUserAccount } = props;
+    const defaultValues = { email: "", password: "", confirm_password: "" };
+    const { values, handleInputChange, handleSubmit } = useAuthForm(defaultValues, cookies, createUserAccount);
+    const { email, password, confirm_password } = values;
+
     return (
-        <Form onSubmit={props.handleSubmit}>
+        <Form onSubmit={handleSubmit}>
             <FormGroup>
                 <Label for='id_email'>Email</Label>
                 <Input type='email'
                        name='email'
                        id='id_email'
                        placeholder='you@example.com'
-                       value={props.email}
-                       onChange={props.handleEmailChange}/>
+                       value={email}
+                       onChange={handleInputChange}/>
             </FormGroup>
 
             <FormGroup>
@@ -29,8 +36,8 @@ const SignupForm = (props) => {
                 <Input type='password'
                        name='password'
                        id='id_password'
-                       value={props.password}
-                       onChange={props.handlePasswordChange}/>
+                       value={password}
+                       onChange={handleInputChange}/>
             </FormGroup>
 
             <FormGroup>
@@ -38,22 +45,18 @@ const SignupForm = (props) => {
                 <Input type='password'
                        name='confirm_password'
                        id='id_confirm_password'
-                       value={props.confirm_password}
-                       onChange={props.handleConfirmPasswordChange}/>
+                       value={confirm_password}
+                       onChange={handleInputChange}/>
             </FormGroup>
+
             <Button>Create Account</Button>
         </Form>
     )
 };
 
-SignupForm.propTypes = {
-    email:                       PropTypes.string.isRequired,
-    password:                    PropTypes.string.isRequired,
-    confirm_password:            PropTypes.string.isRequired,
-    handleSubmit:                PropTypes.func.isRequired,
-    handleEmailChange:           PropTypes.func.isRequired,
-    handlePasswordChange:        PropTypes.func.isRequired,
-    handleConfirmPasswordChange: PropTypes.func.isRequired,
+SignUpForm.propTypes = {
+    cookies: PropTypes.object.isRequired,
+    createUserAccount: PropTypes.func.isRequired
 };
 
-export default SignupForm;
+export default SignUpForm;
