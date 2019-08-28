@@ -36,7 +36,7 @@ const SignUp = (props) => {
             <SignUpForm cookies={ cookies } createUserAccount={ createUserAccount }/>
         </div>
     )
-}
+};
 
 const mapStateToProps = ({ user }) => ({ user });
 
@@ -44,4 +44,4 @@ export default connect(
     mapStateToProps, {
         createUserAccount,
         removeCreateUserAccountErrors
-    })(withRouter(withAuthentication(SignUp)));
+    })(withRouter(SignUp));

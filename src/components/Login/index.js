@@ -47,4 +47,4 @@ export default connect(
     mapStateToProps, {
         createUserSession,
         removeLoginErrors
-    })(withRouter(withAuthentication(Login)));
+    })(withRouter(Login));
