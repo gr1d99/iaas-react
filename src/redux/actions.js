@@ -97,8 +97,10 @@ export const setAllOpenings = (data) => {
 export const notificationAlert = ({message, kind}) => {
     return {
         type: NOTIFICATION_ALERT,
-        alertMessage: message,
-        kind
+        payload: {
+            kind,
+            alertMessage: message
+        }
     }
 };
 

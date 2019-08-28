@@ -1,34 +1,22 @@
 import {
     NOTIFICATION_ALERT,
     CLEAR_NOTIFICATION_ALERT
-} from '../actionTypes';
+} from "../actionTypes";
 
 const initialState = {
-    alertMessage: '',
-    kind: ''
+    alertMessage: "",
+    kind: ""
 };
 
 export default (state = initialState, action) => {
-    switch (action.type) {
+    const { type, payload } = action;
+
+    switch (type) {
         case NOTIFICATION_ALERT:
-            return Object.assign(
-                {},
-                state,
-                {
-                    alertMessage: action.alertMessage,
-                    kind: action.kind
-                }
-            );
+            return { ...state, ...payload };
 
         case CLEAR_NOTIFICATION_ALERT:
-            return Object.assign(
-                {},
-                state,
-                {
-                    alertMessage: '',
-                    kind: ''
-                }
-            );
+            return initialState;
 
         default:
             return state;
