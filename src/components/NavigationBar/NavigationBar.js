@@ -11,32 +11,30 @@ import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default class NavigationBar extends React.Component {
-    state = {
-        isOpen: false
+import useRedirectWhenAuthenticated from "../../hooks/useRedirectWhenAuthenticated";
+
+const NavigationBar = (props) => {
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    const toggleNavBar = () => {
+        setIsOpen(!!isOpen)
     };
 
-    toggle = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
+    const logoutUser = () => {
+        props.destroySession(props.cookies)
     };
 
-    logoutUser = () => {
-        this.props.destroySession(this.props.cookies)
-    };
-
-    authenticatedLinks() {
+    const authenticatedLinks = () => {
         return (
             <Nav className='ml-auto' navbar>
                 <NavItem>
-                    <Link className='nav-link' to='/' onClick={this.logoutUser}><FontAwesomeIcon icon='sign-out-alt'/> Logout</Link>
+                    <Link className='nav-link' to='/' onClick={logoutUser}><FontAwesomeIcon icon='sign-out-alt'/> Logout</Link>
                 </NavItem>
             </Nav>
         );
     };
 
-    unAuthenticatedLinks() {
+    const unAuthenticatedLinks = () => {
         return (
             <Nav className='ml-auto' navbar>
                 <NavItem>
@@ -49,17 +47,19 @@ export default class NavigationBar extends React.Component {
         )
     };
 
-    render() {
-        return (
-            <div>
-                <Navbar color='light' light expand='md'>
-                    <Link className='navbar-brand' to='/'><FontAwesomeIcon icon='home' /> IAPS</Link>
-                    <NavbarToggler onClick={this.toggle}/>
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                        { this.props.authenticated ? (this.authenticatedLinks()) : (this.unAuthenticatedLinks()) }
-                    </Collapse>
-                </Navbar>
-            </div>
-        )
-    }
+    const authenticated = useRedirectWhenAuthenticated();
+
+    return (
+        <div>
+            <Navbar color='light' light expand='md'>
+                <Link className='navbar-brand' to='/'><FontAwesomeIcon icon='home' /> IAPS</Link>
+                <NavbarToggler onClick={toggleNavBar}/>
+                <Collapse isOpen={isOpen} navbar>
+                    { authenticated ? (authenticatedLinks()) : (unAuthenticatedLinks()) }
+                </Collapse>
+            </Navbar>
+        </div>
+    )
 };
+
+export default NavigationBar;

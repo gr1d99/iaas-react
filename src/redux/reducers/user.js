@@ -35,7 +35,7 @@ const user = (state = initialState, action) => {
             return { ...state, ...payload };
 
         case CREATE_USER_SUCCESS:
-            return { ...state, jwtToken, ...payload };
+            return { ...initialState, jwtToken, ...payload };
 
         case REMOVE_USER_ERRORS:
             return initialState;

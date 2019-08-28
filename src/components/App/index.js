@@ -22,6 +22,7 @@ import NewOpening from "../Openings/Create"
 import OpeningList from "../Openings/List/";
 import SignUp from "../SignUp";
 
+
 class App extends React.Component {
     render() {
         const { cookies, onDismissAlert, alertOptions, showAlertMessage } = this.props;
