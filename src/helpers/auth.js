@@ -1,0 +1,19 @@
+import { Cookies } from "react-cookie";
+
+const cookies = new Cookies();
+const APP_DOMAIN = process.env.REACT_APP_DOMAIN;
+const AUTH_TOKEN_KEY = process.env.REACT_APP_AUTH_TOKEN_KEY;
+
+export const removeAuthToken = () => {
+    cookies.remove(AUTH_TOKEN_KEY, {
+        domain: APP_DOMAIN,
+        path: "/"
+    });
+};
+
+export const setAuthToken = (token) => {
+    cookies.set(AUTH_TOKEN_KEY, token, {
+        domain: APP_DOMAIN,
+        path: "/"
+    })
+};

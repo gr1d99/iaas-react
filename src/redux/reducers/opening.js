@@ -9,9 +9,9 @@ export default (state = initialState, action) => {
         case CREATE_OPENING_SUCCESS:
             return { ...state, ...payload };
         case CREATE_OPENING_FAILURE:
-            return Object.assign(state, { data: action.payload });
+            return { ...state, ...payload };
         case CLEAR_OPENING_ERRORS:
-            return {};
+            return initialState;
         case ALL_OPENINGS:
             return { ...state, ...payload };
         default:

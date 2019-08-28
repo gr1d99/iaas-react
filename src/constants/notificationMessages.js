@@ -20,3 +20,9 @@ export const NOTIFICATION_KINDS = {
     warn:    WARN,
     danger:  DANGER
 };
+
+export const OPENINGS = {
+    create: {
+        unauthorized: "You are not authorized to create an opening"
+    }
+};

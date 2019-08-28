@@ -11,14 +11,14 @@ import { removeLoginErrors } from '../../redux/actions';
 import SignInForm from './SignInForm';
 import SignInErrors from "./SignInErrors";
 
-import useRedirectWhenAuthenticated from "../../hooks/useRedirectWhenAuthenticated";
+import useAuthentication from "../../hooks/useAuthentication";
 
 
 const Login = (props) => {
     const { cookies, createUserSession, removeLoginErrors } = props;
     const { data } = props.user;
 
-    const authenticated = useRedirectWhenAuthenticated();
+    const authenticated = useAuthentication();
 
     if (authenticated) {
         return <Redirect to="/"/>

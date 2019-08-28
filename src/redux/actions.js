@@ -61,7 +61,7 @@ export const createUserSuccess = () => {
 export const createOpeningFailure = (data) => {
     return {
         type: CREATE_OPENING_FAILURE,
-        payload: data
+        payload: { data }
     }
 };
 
@@ -82,9 +82,7 @@ export const createOpeningSuccess = (data) => {
 };
 
 export const clearOpeningErrors = () => {
-    return dispatch => {
-        dispatch({ type: CLEAR_OPENING_ERRORS })
-    }
+    return dispatch => { dispatch({ type: CLEAR_OPENING_ERRORS }) }
 };
 
 export const setAllOpenings = (data) => {
@@ -102,6 +100,10 @@ export const notificationAlert = ({message, kind}) => {
             alertMessage: message
         }
     }
+};
+
+export const notify = (message, kind) => {
+    return dispatch => dispatch(notificationAlert({message, kind}))
 };
 
 export const clearNotificationAlert = () => {

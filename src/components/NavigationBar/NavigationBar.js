@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import useRedirectWhenAuthenticated from "../../hooks/useRedirectWhenAuthenticated";
+import useAuthentication from "../../hooks/useAuthentication";
 
 const NavigationBar = (props) => {
     const { cookies } = props;
@@ -48,7 +48,7 @@ const NavigationBar = (props) => {
         )
     };
 
-    const authenticated = useRedirectWhenAuthenticated();
+    const authenticated = useAuthentication();
 
     return (
         <div>

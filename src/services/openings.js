@@ -8,25 +8,17 @@ import {
     requestStarted, setAllOpenings
 } from "../redux/actions";
 
-export const createOpening = (data, history) => {
+export const createOpening = (data) => {
     return dispatch => {
-        dispatch(requestStarted());
-
         return axiosInstance.post("/openings", { opening: data })
             .then((response) => {
-                const { data } = response.data;
+                const { data } = response;
 
                 dispatch(createOpeningSuccess(data));
 
-                dispatch(requestFinished());
-
                 dispatch(notificationAlert({ message: "Opening created successfully", kind: "success"}));
-
-                history.push("/")
             }).catch((error) => {
                 dispatch(createOpeningFailure(error.response.data));
-
-                dispatch(requestFinished());
             });
     }
 };

@@ -12,6 +12,8 @@ import {
     SESSIONS
 } from "../constants/notificationMessages";
 
+import {removeAuthToken, setAuthToken} from "../helpers/auth";
+
 
 export const createUserSession = (sessionData, cookies) => {
     return (dispatch) => {
@@ -20,7 +22,7 @@ export const createUserSession = (sessionData, cookies) => {
                 const userJwt = response.headers['x-access-token'];
                 const notificationData = { message: SESSIONS.created, kind: NOTIFICATION_KINDS.success };
 
-                cookies.set('jwtToken', userJwt);
+                setAuthToken(userJwt);
 
                 dispatch(loginSuccess());
                 dispatch(notificationAlert(notificationData))
@@ -30,8 +32,7 @@ export const createUserSession = (sessionData, cookies) => {
     }
 };
 
-export const destroySession = (cookies) => {
-    cookies.remove("jwtToken");
-
+export const destroySession = () => {
+    removeAuthToken();
     return (dispatch) => dispatch(logoutSuccess())
 };

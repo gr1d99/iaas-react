@@ -12,7 +12,9 @@ import {
 
 const cookies = new Cookies();
 
-const initialState = {};
+const initialState = {
+    jwtToken: cookies.get("jwtToken")
+};
 
 const user = (state = initialState, action) => {
     const { type, payload } = action;

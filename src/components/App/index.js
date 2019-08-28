@@ -13,7 +13,6 @@ import './css/App.css';
 
 import '../Icons';
 
-import withAlertMessage from "../HOCs/withAlertMessage"
 import HomePage from '../HomePage';
 import Login from '../SignIn'
 import MessageAlertBox from "../AlertBoxes/MessageAlertBox";
@@ -25,7 +24,7 @@ import SignUp from "../SignUp";
 
 class App extends React.Component {
     render() {
-        const { cookies, onDismissAlert, alertOptions, showAlertMessage } = this.props;
+        const { cookies, onDismissAlert, alertOptions } = this.props;
 
         return (
             <Router>
@@ -45,7 +44,7 @@ class App extends React.Component {
 
                         <Route path='/sign_up' render={() => <SignUp cookies={ cookies } />} />
 
-                        <Route path="/openings/new" exact render={() => <NewOpening showAlertMessage={ showAlertMessage }/>}/>
+                        <Route path="/openings/new" component={NewOpening}/>
 
                         <Route path="/openings" exact component={OpeningList}/>
                     </div>
@@ -55,4 +54,4 @@ class App extends React.Component {
     }
 }
 
-export default withCookies(withAlertMessage(App));
+export default withCookies(App);

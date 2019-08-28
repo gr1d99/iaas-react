@@ -10,6 +10,7 @@ import {
     NOTIFICATION_KINDS,
     USERS
 } from "../constants/notificationMessages";
+import {setAuthToken} from "../helpers/auth";
 
 export const createUserAccount = (userData, cookies) => {
     return dispatch => {
@@ -21,7 +22,7 @@ export const createUserAccount = (userData, cookies) => {
             const jwtToken = response.headers['x-access-token'];
             const notificationData = { message: USERS.created, kind: NOTIFICATION_KINDS.success };
 
-            cookies.set("jwtToken", jwtToken);
+            setAuthToken(jwtToken)
 
             dispatch(createUserSuccess());
             dispatch(notificationAlert(notificationData))
