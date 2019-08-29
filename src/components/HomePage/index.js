@@ -4,19 +4,20 @@ import { connect } from "react-redux";
 
 import Admin from "./Admin";
 
-import useAdminAuthorization from "../../hooks/useAdminAuthorization";
+import useAuthContext from "../../contexts/authentication/hooks/useAuthContext";
+
 
 const HomePage = () => {
-    const admin = useAdminAuthorization();
+    const [{ roles }, ] = useAuthContext();
 
     return (
         <div className="mt-5">
-            { admin ? <Admin/> : <React.Fragment/>}
+            { roles.admin ? <Admin/> : <React.Fragment/>}
         </div>
     )
 };
 
-const mapStateToProps = ({ user, notification }) => {
+const mapStateToProps = ({ notification }) => {
     return { notification }
 };
 

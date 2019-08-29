@@ -36,7 +36,7 @@ const OpeningForm = (props) => {
                 {
                     props.data ? props.data.errors ? (
                         <AsyncFormErrors color="danger" errors={props.data.errors} clearAsyncErrors={clearOpeningErrors}/>
-                    ) : (null) : (null)
+                    ) : (<React.Fragment/>) : (<React.Fragment/>)
                 }
                 <Form onSubmit={handleSubmit}>
                     <Row form>

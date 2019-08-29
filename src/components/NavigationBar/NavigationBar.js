@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     Collapse,
     Navbar,
@@ -11,18 +12,36 @@ import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import useAuthentication from "../../hooks/useAuthentication";
+import useAuthContext from "../../contexts/authentication/hooks/useAuthContext";
 
-const NavigationBar = (props) => {
-    const { cookies } = props;
+import { LOGOUT } from "../../contexts/types";
+
+import { getJwtToken, removeAuthToken, userIsAdmin } from "../../helpers/auth";
+
+
+const NavigationBar = () => {
+    const [{ authenticated }, dispatch] = useAuthContext();
+
     const [isOpen, setIsOpen] = React.useState(false);
 
     const toggleNavBar = () => {
-        setIsOpen(!!isOpen)
+        setIsOpen(!isOpen)
     };
 
     const logoutUser = () => {
-        props.destroySession(cookies)
+        removeAuthToken();
+
+        const authenticated = !!getJwtToken();
+
+        dispatch({
+            type: LOGOUT,
+            payload: {
+                authenticated,
+                roles: {
+                    admin: userIsAdmin()
+                }
+            }
+        })
     };
 
     const authenticatedLinks = () => {
@@ -47,8 +66,6 @@ const NavigationBar = (props) => {
             </Nav>
         )
     };
-
-    const authenticated = useAuthentication();
 
     return (
         <div>

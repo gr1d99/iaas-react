@@ -14,9 +14,9 @@ import useAuthForm from "../../hooks/useAuthForm";
 
 
 const SignUpForm = (props) => {
-    const { cookies, createUserAccount } = props;
+    const { createUserAccount } = props;
     const defaultValues = { email: "", password: "", confirm_password: "" };
-    const { values, handleInputChange, handleSubmit } = useAuthForm(defaultValues, cookies, createUserAccount);
+    const { values, handleInputChange, handleSubmit } = useAuthForm(defaultValues, createUserAccount);
     const { email, password, confirm_password } = values;
 
     return (
@@ -55,7 +55,6 @@ const SignUpForm = (props) => {
 };
 
 SignUpForm.propTypes = {
-    cookies: PropTypes.object.isRequired,
     createUserAccount: PropTypes.func.isRequired
 };
 
