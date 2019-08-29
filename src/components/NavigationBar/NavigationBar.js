@@ -70,11 +70,18 @@ const NavigationBar = () => {
     return (
         <div>
             <Navbar color='light' light expand='md'>
-                <Link className='navbar-brand' to='/'><FontAwesomeIcon icon='home' /> IAPS</Link>
-                <NavbarToggler onClick={toggleNavBar}/>
-                <Collapse isOpen={isOpen} navbar>
-                    { authenticated ? (authenticatedLinks()) : (unAuthenticatedLinks()) }
-                </Collapse>
+                <div className="container">
+                    <Link className='navbar-brand' to='/'><FontAwesomeIcon icon='home' /> IAPS</Link>
+                    <NavbarToggler onClick={toggleNavBar}/>
+                    <Collapse isOpen={isOpen} navbar>
+                        <Nav navbar>
+                            <NavItem>
+                                <Link className='nav-link' to="/openings"><FontAwesomeIcon icon="briefcase"/> Openings</Link>
+                            </NavItem>
+                        </Nav>
+                        { authenticated ? (authenticatedLinks()) : (unAuthenticatedLinks()) }
+                    </Collapse>
+                </div>
             </Navbar>
         </div>
     )

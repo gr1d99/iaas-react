@@ -6,6 +6,8 @@ import OpeningItems from "./OpeningItems";
 
 import { fetchAllOpenings } from "../../../services/openings";
 
+import "./css/list.css"
+
 class OpeningList extends React.Component {
     componentDidMount() {
         this.props.fetchAllOpenings()
@@ -15,7 +17,9 @@ class OpeningList extends React.Component {
         const { data, meta, links } = this.props.opening;
 
         if (data) {
-            return <OpeningItems data={ data } links={ links } meta={ meta } fetchByPage={ this.fetchByPage }/>
+            return <div className="container">
+                <OpeningItems data={ data } links={ links } meta={ meta } fetchByPage={ this.fetchByPage }/>
+            </div>
         } else {
             return <div>Loading..</div>
         }
