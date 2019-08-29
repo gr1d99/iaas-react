@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-const useAuthForm = (defaultValues, cookies, callback) => {
+const useAuthForm = (defaultValues, callback) => {
     const handleSubmit = (event) => {
         event.preventDefault();
-        callback(values, cookies);
+        callback(values);
         resetValues();
     };
 

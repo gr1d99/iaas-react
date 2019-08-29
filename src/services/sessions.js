@@ -15,7 +15,7 @@ import {
 import {removeAuthToken, setAuthToken} from "../helpers/auth";
 
 
-export const createUserSession = (sessionData, cookies) => {
+export const createUserSession = (sessionData) => {
     return (dispatch) => {
         return axiosInstance.post('/sessions', { session: { ...sessionData }})
             .then((response) => {

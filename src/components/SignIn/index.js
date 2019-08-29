@@ -1,7 +1,5 @@
 import React  from 'react';
 
-import { withRouter, Redirect } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 
 import { createUserSession } from '../../services/sessions';
@@ -13,15 +11,30 @@ import SignInErrors from "./SignInErrors";
 
 import useAuthentication from "../../hooks/useAuthentication";
 
+import useAuthContext from "../../contexts/authentication/hooks/useAuthContext";
+
+import { getJwtToken, userIsAdmin } from "../../helpers/auth";
+
+import { LOGIN } from "../../contexts/types";
+
 
 const Login = (props) => {
-    const { cookies, createUserSession, removeLoginErrors } = props;
+    const { createUserSession, removeLoginErrors } = props;
     const { data } = props.user;
 
     const authenticated = useAuthentication();
+    const [, dispatch] = useAuthContext();
 
     if (authenticated) {
-        return <Redirect to="/"/>
+        dispatch({
+            type: LOGIN,
+            payload: {
+                authenticated: !!getJwtToken(),
+                roles: {
+                    admin: userIsAdmin()
+                }
+            }
+        });
     }
 
     return (
@@ -32,7 +45,7 @@ const Login = (props) => {
                 <React.Fragment/>
             ) }
 
-            <SignInForm authenticateUser={ createUserSession } cookies={ cookies }/>
+            <SignInForm authenticateUser={ createUserSession }/>
         </div>
     )
 };
@@ -45,4 +58,5 @@ export default connect(
     mapStateToProps, {
         createUserSession,
         removeLoginErrors
-    })(withRouter(Login));
+    })(Login);
+
