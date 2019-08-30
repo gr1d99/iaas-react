@@ -12,8 +12,7 @@ import {
     CREATE_OPENING_SUCCESS,
     CLEAR_OPENING_ERRORS,
     ALL_OPENINGS,
-    REMOVE_LOGIN_ERRORS,
-    REMOVE_USER_ERRORS
+    RESET_USER
 } from './actionTypes';
 
 
@@ -35,12 +34,6 @@ export const loginSuccess = () => {
 
 export const loginFailure = (data) => {
     return { type: LOGIN_FAILURE, payload: { data } }
-};
-
-export const removeLoginErrors = () => {
-    return dispatch => {
-        dispatch({ type: REMOVE_LOGIN_ERRORS, payload: { jwtToken: null } })
-    }
 };
 
 export const logoutSuccess = () => {
@@ -65,10 +58,10 @@ export const createOpeningFailure = (data) => {
     }
 };
 
-export const removeCreateUserAccountErrors = () => {
+export const resetUser = () => {
     return dispatch => {
         return dispatch({
-            type: REMOVE_USER_ERRORS,
+            type: RESET_USER,
             payload: {}
         })
     }

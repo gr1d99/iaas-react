@@ -14,7 +14,6 @@ import {setAuthToken} from "../helpers/auth";
 
 export const createUserAccount = (userData, cookies) => {
     return dispatch => {
-
         return axios.post(
             '/users',
             { user: userData }
@@ -22,7 +21,7 @@ export const createUserAccount = (userData, cookies) => {
             const jwtToken = response.headers['x-access-token'];
             const notificationData = { message: USERS.created, kind: NOTIFICATION_KINDS.success };
 
-            setAuthToken(jwtToken)
+            setAuthToken(jwtToken);
 
             dispatch(createUserSuccess());
             dispatch(notificationAlert(notificationData))

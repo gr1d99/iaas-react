@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import { createUserSession } from '../../services/sessions';
 
-import { removeLoginErrors } from '../../redux/actions';
+import { resetUser } from '../../redux/actions';
 
 import SignInForm from './SignInForm';
-import SignInErrors from "./SignInErrors";
+import AsyncFormErrors from "../Forms/AsyncFormErrors";
 
 import useAuthentication from "../../hooks/useAuthentication";
 
@@ -19,7 +19,8 @@ import { LOGIN } from "../../contexts/types";
 
 
 const Login = (props) => {
-    const { createUserSession, removeLoginErrors } = props;
+    const { createUserSession, resetUser } = props;
+
     const { data } = props.user;
 
     const authenticated = useAuthentication();
@@ -40,7 +41,7 @@ const Login = (props) => {
     return (
         <div className="col-md-4 offset-4 mt-5">
             { data && data.errors ? (
-                <SignInErrors errors={ data.errors } removeLoginErrors={ removeLoginErrors }/>
+                <AsyncFormErrors color="danger" clearAsyncErrors={ resetUser } errors={ data.errors }/>
             ) : (
                 <React.Fragment/>
             ) }
@@ -57,6 +58,5 @@ const mapStateToProps = ({ user }, ownProps) => {
 export default connect(
     mapStateToProps, {
         createUserSession,
-        removeLoginErrors
+        resetUser
     })(Login);
-

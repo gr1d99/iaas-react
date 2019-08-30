@@ -6,9 +6,10 @@ import {
     LOGOUT_SUCCESS,
     CREATE_USER_FAILURE,
     CREATE_USER_SUCCESS,
-    REMOVE_LOGIN_ERRORS,
-    REMOVE_USER_ERRORS,
+    RESET_USER
 } from './../actionTypes';
+
+import { getJwtToken } from "../../helpers/auth";
 
 const cookies = new Cookies();
 
@@ -18,17 +19,17 @@ const initialState = {
 
 const user = (state = initialState, action) => {
     const { type, payload } = action;
-    const jwtToken = cookies.get("jwtToken");
+    const jwtToken = getJwtToken();
 
     switch (type) {
+        case RESET_USER:
+            return initialState;
+
         case LOGIN_SUCCESS:
             return { ...state, jwtToken };
 
         case LOGIN_FAILURE:
             return { ...state, jwtToken, ...payload };
-
-        case REMOVE_LOGIN_ERRORS:
-            return initialState;
 
         case LOGOUT_SUCCESS:
             return { ...initialState, jwtToken, ...payload };
@@ -38,9 +39,6 @@ const user = (state = initialState, action) => {
 
         case CREATE_USER_SUCCESS:
             return { ...initialState, jwtToken, ...payload };
-
-        case REMOVE_USER_ERRORS:
-            return initialState;
 
         default:
             return state;

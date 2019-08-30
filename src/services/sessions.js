@@ -5,6 +5,7 @@ import {
     loginSuccess,
     logoutSuccess,
     notificationAlert,
+    resetUser
 } from '../redux/actions';
 
 import {
@@ -27,7 +28,7 @@ export const createUserSession = (sessionData) => {
                 dispatch(loginSuccess());
                 dispatch(notificationAlert(notificationData))
             }).catch((error) => {
-                dispatch(loginFailure(error.response.data, null))
+                dispatch(loginFailure(error.response.data))
             })
     }
 };

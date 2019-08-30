@@ -10,7 +10,7 @@ const SignInErrors = (props) => {
     const { errors, removeLoginErrors } = props;
 
     return (
-        <Alert color='danger' isOpen={ errors.length > 0 } toggle={ removeLoginErrors }>
+        <Alert color='danger' isOpen={ true } toggle={ removeLoginErrors }>
             <ul>
                 { errors.map((error) => (<li key={randomStringGenerator()}>{ error }</li>)) }
             </ul>
