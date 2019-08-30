@@ -12,7 +12,7 @@ import OpeningForm from "./OpeningForm";
 
 
 const NewOpening = (props) => {
-    const { createOpening } = props;
+    const { createOpening, clearOpeningErrors } = props;
     const { data } = props.opening;
 
     if (data && data.attributes) { return <Redirect to="/"/> }
