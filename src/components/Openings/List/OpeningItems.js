@@ -11,7 +11,7 @@ const OpeningItems = ({ data, links, meta, fetchByPage }) => {
     return (
         <div>
             <Row className="mt-5">
-                { data.map((opening) => (<Card key={ opening.id } attributes={ opening.attributes }/>))}
+                { data.map((opening) => (<Card key={ opening.id } id={ opening.id } attributes={ opening.attributes }/>))}
             </Row>
 
             <OpeningsPagination links={ links } meta={ meta } fetchByPage={ fetchByPage }/>

@@ -1,11 +1,11 @@
 import axiosInstance from "."
 
 import {
+    addOpeningDetail,
     createOpeningFailure,
     createOpeningSuccess,
     notificationAlert,
-    requestFinished,
-    requestStarted, setAllOpenings
+    setAllOpenings
 } from "../redux/actions";
 
 export const createOpening = (data) => {
@@ -27,15 +27,26 @@ export const fetchAllOpenings = (paginationQuery) => {
     const url = paginationQuery ? `/openings?${paginationQuery}` : "/openings";
 
     return dispatch => {
-        dispatch(requestStarted());
         return axiosInstance.get(url)
             .then((response) => {
                 dispatch(setAllOpenings(response.data));
-                dispatch(requestFinished())
             })
             .catch((error) => {
-                console.log(error.response)
+                throw error
             })
     }
 };
 
+export const fetchOpeningDetail = (id) => {
+    const url = `/openings/${id}`;
+
+    return dispatch => {
+        return axiosInstance.get(url)
+            .then((response) => {
+                dispatch(addOpeningDetail(response.data))
+            })
+            .catch((error) => {
+                throw error
+            })
+    }
+};

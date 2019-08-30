@@ -1,4 +1,5 @@
 import {
+    ADD_OPENING_DETAIL,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
     LOGOUT_SUCCESS,
@@ -81,6 +82,13 @@ export const clearOpeningErrors = () => {
 export const setAllOpenings = (data) => {
     return {
         type: ALL_OPENINGS,
+        payload: data
+    }
+};
+
+export const addOpeningDetail = (data) => {
+    return {
+        type: ADD_OPENING_DETAIL,
         payload: data
     }
 };

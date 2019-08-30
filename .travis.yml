@@ -9,4 +9,4 @@ deploy:
     secure: $HEROKU_API_KEY
   app: iaas-frontend-react
   on:
-    branch: master
+    all_branches: true
