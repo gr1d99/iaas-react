@@ -9,8 +9,6 @@ import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import "./css/admin.css"
-
 
 const Admin = () => {
     return (
@@ -21,11 +19,11 @@ const Admin = () => {
                 <hr/>
 
                 <div className="d-flex flex-row">
-                    <Link to="/openings/new" className="p-1 link">
+                    <Link to="/openings/new" className="p-1 link add-opening-link">
                         <FontAwesomeIcon icon="plus"/> Create
                     </Link>
                     <div className="pr-1 pl-1 pt-1 link">|</div>
-                    <Link to="/openings" className="p-1 link">
+                    <Link to="/openings" className="p-1 link add-opening-link">
                         <FontAwesomeIcon icon="eye"/> View All
                     </Link>
                 </div>
@@ -37,11 +35,11 @@ const Admin = () => {
                 <hr/>
 
                 <div className="d-flex flex-row">
-                    <Link to="#" className="p-1 link">
+                    <Link to="#" className="p-1 link add-opening-link">
                         <FontAwesomeIcon icon="plus"/> Create
                     </Link>
                     <div className="pr-1 pl-1 pt-1 link">|</div>
-                    <Link to="#" className="p-1 link">
+                    <Link to="#" className="p-1 link add-opening-link">
                         <FontAwesomeIcon icon="eye"/> View All
                     </Link>
                 </div>

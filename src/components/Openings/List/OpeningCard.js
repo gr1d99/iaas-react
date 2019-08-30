@@ -12,7 +12,7 @@ const OpeningCard = ({ attributes }) => {
             <Card body>
                 <CardHeader className="text-capitalize opening-title">{attributes.title}</CardHeader>
                 <CardText className="mt-3">
-                    <EllipsisText text={attributes.description} length="120" />
+                    <EllipsisText text={attributes.description} length={120} />
                     </CardText>
 
                 <Button>Apply</Button>
