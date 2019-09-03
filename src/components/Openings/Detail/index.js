@@ -5,9 +5,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { fetchOpeningDetail } from "../../../services/openings";
+
 import OpeningDetailCard from "./OpeningDetailCard";
 
-const OpeningDetail = ({ opening, fetchOpeningDetail, match }) => {
+import "./css/index.css"
+
+
+const OpeningDetail = ({ opening, fetchOpeningDetail, match, history }) => {
     const { id } = match.params;
 
     React.useEffect(() => {
@@ -16,7 +20,7 @@ const OpeningDetail = ({ opening, fetchOpeningDetail, match }) => {
 
     if (opening.detail) {
         const { data } = opening.detail;
-        return <OpeningDetailCard data={ data }/>
+        return <OpeningDetailCard history={history} data={ data }/>
     } else {
         return <div>Loading...</div>
     }

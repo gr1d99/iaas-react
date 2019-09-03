@@ -54,6 +54,8 @@ class App extends React.Component {
 
                             <Route path="/openings/:id" exact render={ (props) => (<OpeningDetail { ...props }/>) }/>
                         </div>
+
+                        <div id="footer" className="mt-5"></div>
                     </div>
                 </Router>
             </AuthContextProvider>
