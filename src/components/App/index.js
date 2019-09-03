@@ -17,6 +17,7 @@ import MessageAlertBox from "../AlertBoxes/MessageAlertBox";
 import NavigationBar from './../NavigationBar';
 import NewOpening from "../Openings/Create"
 import OpeningList from "../Openings/List/";
+import OpeningDetail from "../Openings/Detail"
 import SignUp from "../SignUp";
 
 import AuthContextProvider from "../../contexts/authentication/Provider";
@@ -50,7 +51,11 @@ class App extends React.Component {
                             <AdminRoutesAuthContextConsumer component={ NewOpening } path="/openings/new"/>
 
                             <Route path="/openings" exact component={ OpeningList }/>
+
+                            <Route path="/openings/:id" exact render={ (props) => (<OpeningDetail { ...props }/>) }/>
                         </div>
+
+                        <div id="footer" className="mt-5"></div>
                     </div>
                 </Router>
             </AuthContextProvider>

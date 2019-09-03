@@ -1,0 +1,7 @@
+.opening-detail-meta {
+    font-size: 0.8em;
+}
+
+.opening-detail-description, span.opening-detail-meta {
+    font-weight: 300;
+}

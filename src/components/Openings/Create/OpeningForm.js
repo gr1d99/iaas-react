@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 
 import AsyncFormErrors from "../../Forms/AsyncFormErrors";
-import useOpeningForm from "../hooks/useOpeningForm";
+import useOpeningForm from "./hooks/useOpeningForm";
 
 const OpeningForm = (props) => {
     const initialValues = {

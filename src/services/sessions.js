@@ -4,8 +4,7 @@ import {
     loginFailure,
     loginSuccess,
     logoutSuccess,
-    notificationAlert,
-    resetUser
+    notificationAlert
 } from '../redux/actions';
 
 import {
