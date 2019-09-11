@@ -17,7 +17,8 @@ import MessageAlertBox from "../AlertBoxes/MessageAlertBox";
 import NavigationBar from './../NavigationBar';
 import NewOpening from "../Openings/Create"
 import OpeningList from "../Openings/List/";
-import OpeningDetail from "../Openings/Detail"
+import OpeningDetail from "../Openings/Detail";
+import UpdateOpening from "../Openings/Update";
 import SignUp from "../SignUp";
 
 import AuthContextProvider from "../../contexts/authentication/Provider";
@@ -38,23 +39,23 @@ class App extends React.Component {
                         <NavigationBar cookies={ cookies }/>
 
                         <header className='App-header'></header>
-
                         <div className='container-fluid'>
                             <MessageAlertBox onDismiss={ onDismissAlert } { ...alertOptions }/>
 
                             <Route path='/' exact component={ HomePage } />
 
-                            <NoAuthRouteAuthContextConsumer component={ SignIn } path="/sign_in"/>
+                            <NoAuthRouteAuthContextConsumer path="/sign_in" component={ SignIn }/>
 
-                            <NoAuthRouteAuthContextConsumer component={ SignUp } path="/sign_up"/>
-
-                            <AdminRoutesAuthContextConsumer component={ NewOpening } path="/openings/new"/>
+                            <NoAuthRouteAuthContextConsumer path="/sign_up" component={ SignUp }/>
 
                             <Route path="/openings" exact component={ OpeningList }/>
 
-                            <Route path="/openings/:id" exact render={ (props) => (<OpeningDetail { ...props }/>) }/>
-                        </div>
+                            <AdminRoutesAuthContextConsumer exact path="/openings/create" component={ NewOpening }/>
 
+                            <Route path="/openings/:id" exact render={ (props) => (<OpeningDetail { ...props }/>) }/>
+
+                            <AdminRoutesAuthContextConsumer path="/openings/:id/edit" exact component={ UpdateOpening }/>
+                        </div>
                         <div id="footer" className="mt-5"></div>
                     </div>
                 </Router>

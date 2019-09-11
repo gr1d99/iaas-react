@@ -3,7 +3,10 @@ import {
     CREATE_OPENING_FAILURE,
     CREATE_OPENING_SUCCESS,
     ALL_OPENINGS,
-    ADD_OPENING_DETAIL
+    ADD_OPENING_DETAIL,
+    ADD_OPENING_ERRORS,
+    ADD_UPDATE_OPENING_SUCCESS,
+    REMOVE_UPDATE_OPENING_SUCCESS
 } from "../actionTypes";
 
 const initialState = {};
@@ -17,11 +20,17 @@ export default (state = initialState, action) => {
         case CREATE_OPENING_FAILURE:
             return { ...state, ...payload };
         case CLEAR_OPENING_ERRORS:
-            return initialState;
+            return { ...state, errors: undefined, ...payload };
         case ALL_OPENINGS:
             return { ...state, ...payload };
         case ADD_OPENING_DETAIL:
             return { ...state, detail: payload };
+        case ADD_OPENING_ERRORS:
+            return { ...state, errors: payload };
+        case ADD_UPDATE_OPENING_SUCCESS:
+            return { ...state, update: true };
+        case REMOVE_UPDATE_OPENING_SUCCESS:
+            return { ...state, update: undefined };
         default:
             return state;
     }

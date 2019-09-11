@@ -7,8 +7,7 @@ const useOpeningForm = (initialValues, callback) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-
-        callback(values)
+        return callback(values)
     };
 
     const handleInputChange = (event) => {
