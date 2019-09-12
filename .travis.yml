@@ -6,3 +6,5 @@ before_install:
 deploy:
   provider: script
   script: bash deploy/environment_variables.rb master
+  on:
+    all_branches: true
