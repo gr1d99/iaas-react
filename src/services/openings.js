@@ -5,8 +5,10 @@ import {
     createOpeningFailure,
     createOpeningSuccess,
     notificationAlert,
+    addOpeningErrors,
     setAllOpenings
 } from "../redux/actions";
+import {ADD_UPDATE_OPENING_SUCCESS} from "../redux/actionTypes";
 
 export const createOpening = (data) => {
     return dispatch => {
@@ -48,5 +50,22 @@ export const fetchOpeningDetail = (id) => {
             .catch((error) => {
                 throw error
             })
+    }
+};
+
+export const updateOpeningDetail = (id, data) => {
+    const url = `/openings/${id}`;
+
+    return dispatch => {
+        return axiosInstance.put(url, { opening: data })
+            .then((response) => {
+                dispatch(addOpeningDetail(response.data));
+                dispatch(notificationAlert({ message: "Opening updated successfully", kind: "success"}));
+                dispatch({ type: ADD_UPDATE_OPENING_SUCCESS })
+            })
+            .catch((error) => {
+                dispatch(addOpeningErrors(error.response.data.errors))
+            }
+        )
     }
 };

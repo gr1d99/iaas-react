@@ -11,7 +11,7 @@ export default ({component: Component, ...rest }) => {
                 ([{authenticated, roles}]) => (
                     <Route {...rest } render={(props) => {
                         if (authenticated && roles.admin) {
-                            return <Component/>
+                            return <Component { ...props }/>
                         }
                         if (authenticated && !roles.admin){
                             return <Redirect to={{pathname: "/"}}/>

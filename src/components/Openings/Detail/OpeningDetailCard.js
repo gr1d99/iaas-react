@@ -10,13 +10,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const OpeningDetailCard = ({ data, history }) => {
-    const { attributes } = data;
+    const { attributes, id } = data;
 
     return (
         <Container className="mt-5">
-            <Link to="#" onClick={history.goBack} className="link">
-                <FontAwesomeIcon icon="chevron-left"/> Go back
-            </Link>
+            <div className="clearfix">
+                <Link to="#" onClick={history.goBack} className="link float-left">
+                    <FontAwesomeIcon icon="chevron-left"/> Go back
+                </Link>
+
+                <Link to={`/openings/${id}/edit`} className="link float-right">
+                    <FontAwesomeIcon icon="pencil-alt"/> Edit
+                </Link>
+            </div>
+
+            <br/>
 
             <Card>
                 <CardBody>
