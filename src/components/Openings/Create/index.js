@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { Redirect } from "react-router-dom";
 
-import { clearOpeningErrors } from "../../../redux/actions";
+import { removeOpeningErrors } from "../../../redux/actions";
 
 import { createOpening } from "../../../services/openings";
 
@@ -29,5 +29,5 @@ const mapStateToProps = ({ opening }) => ({ opening });
 export default connect(
     mapStateToProps, {
         createOpening,
-        clearOpeningErrors,
+        clearOpeningErrors: removeOpeningErrors,
     })(NewOpening);

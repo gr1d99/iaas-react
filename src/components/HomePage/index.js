@@ -2,6 +2,8 @@ import React from "react";
 
 import { connect } from "react-redux";
 
+import { Container } from "reactstrap";
+
 import Admin from "./Admin";
 
 import useAuthContext from "../../contexts/authentication/hooks/useAuthContext";
@@ -11,9 +13,9 @@ const HomePage = () => {
     const [{ roles }, ] = useAuthContext();
 
     return (
-        <div className="mt-5">
+        <Container className="mt-5">
             { roles.admin ? <Admin/> : <React.Fragment/>}
-        </div>
+        </Container>
     )
 };
 

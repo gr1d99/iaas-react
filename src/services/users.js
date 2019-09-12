@@ -12,7 +12,7 @@ import {
 } from "../constants/notificationMessages";
 import {setAuthToken} from "../helpers/auth";
 
-export const createUserAccount = (userData, cookies) => {
+export const createUserAccount = (userData) => {
     return dispatch => {
         return axios.post(
             '/users',

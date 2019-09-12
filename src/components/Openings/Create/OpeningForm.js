@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 
 import AsyncFormErrors from "../../Forms/AsyncFormErrors";
-import useOpeningForm from "./hooks/useOpeningForm";
+import useOpeningForm from "../hooks/useOpeningForm";
 
 const OpeningForm = (props) => {
     const initialValues = {
@@ -38,7 +38,7 @@ const OpeningForm = (props) => {
                         <AsyncFormErrors color="danger" errors={props.data.errors} clearAsyncErrors={clearOpeningErrors}/>
                     ) : (<React.Fragment/>) : (<React.Fragment/>)
                 }
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={ handleSubmit }>
                     <Row form>
                         <Col md={4}>
                             <FormGroup>

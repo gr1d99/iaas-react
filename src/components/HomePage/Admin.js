@@ -1,11 +1,11 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import {
     Col,
     Row
 } from "reactstrap";
-
-import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -19,7 +19,7 @@ const Admin = () => {
                 <hr/>
 
                 <div className="d-flex flex-row">
-                    <Link to="/openings/new" className="p-1 link add-opening-link">
+                    <Link to="/openings/create" className="p-1 link add-opening-link">
                         <FontAwesomeIcon icon="plus"/> Create
                     </Link>
                     <div className="pr-1 pl-1 pt-1 link">|</div>

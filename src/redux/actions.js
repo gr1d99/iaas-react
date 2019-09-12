@@ -1,5 +1,6 @@
 import {
     ADD_OPENING_DETAIL,
+    ADD_OPENING_ERRORS,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
     LOGOUT_SUCCESS,
@@ -13,7 +14,7 @@ import {
     CREATE_OPENING_SUCCESS,
     CLEAR_OPENING_ERRORS,
     ALL_OPENINGS,
-    RESET_USER
+    RESET_USER, REMOVE_UPDATE_OPENING_SUCCESS
 } from './actionTypes';
 
 
@@ -75,7 +76,7 @@ export const createOpeningSuccess = (data) => {
     }
 };
 
-export const clearOpeningErrors = () => {
+export const removeOpeningErrors = () => {
     return dispatch => { dispatch({ type: CLEAR_OPENING_ERRORS }) }
 };
 
@@ -93,6 +94,13 @@ export const addOpeningDetail = (data) => {
     }
 };
 
+export const addOpeningErrors = (errors) => {
+    return {
+        type: ADD_OPENING_ERRORS,
+        payload: errors
+    }
+};
+
 export const notificationAlert = ({message, kind}) => {
     return {
         type: NOTIFICATION_ALERT,
@@ -101,6 +109,12 @@ export const notificationAlert = ({message, kind}) => {
             alertMessage: message
         }
     }
+};
+
+export const removeUpdateOpeningSuccess = () => {
+    return dispatch => (
+        dispatch({ type: REMOVE_UPDATE_OPENING_SUCCESS })
+    )
 };
 
 export const notify = (message, kind) => {

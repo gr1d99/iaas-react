@@ -16,7 +16,7 @@ const OpeningDetail = ({ opening, fetchOpeningDetail, match, history }) => {
 
     React.useEffect(() => {
        fetchOpeningDetail(id)
-    }, [id]);
+    }, [fetchOpeningDetail, id]);
 
     if (opening.detail) {
         const { data } = opening.detail;
