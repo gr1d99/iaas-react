@@ -14,7 +14,10 @@ import {
     CREATE_OPENING_SUCCESS,
     CLEAR_OPENING_ERRORS,
     ALL_OPENINGS,
-    RESET_USER, REMOVE_UPDATE_OPENING_SUCCESS
+    RESET_USER,
+    REMOVE_UPDATE_OPENING_SUCCESS,
+    REMOVE_DELETE_OPENING_SUCCESS,
+    DELETE_OPENING
 } from './actionTypes';
 
 
@@ -115,6 +118,19 @@ export const removeUpdateOpeningSuccess = () => {
     return dispatch => (
         dispatch({ type: REMOVE_UPDATE_OPENING_SUCCESS })
     )
+};
+
+export const removeDeleteOpeningSuccess = () => {
+    return dispatch => {
+        dispatch({ type: REMOVE_DELETE_OPENING_SUCCESS})
+    }
+};
+
+export const deleteOpening = () => {
+    return {
+        type: DELETE_OPENING,
+        payload: {}
+    }
 };
 
 export const notify = (message, kind) => {
