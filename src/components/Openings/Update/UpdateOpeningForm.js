@@ -127,7 +127,7 @@ const EditOpeningForm = ({ data, errors, updateOpeningDetail, removeOpeningError
                                 </Col>
                             </Row>
 
-                            <Button block className="mt-3 mb-3">Submit</Button>
+                            <Button block className="mt-5 mb-3">Submit</Button>
                         </Form>
                     </CardBody>
                 </Card>
