@@ -36,3 +36,8 @@ export const getUserRole = () => {
 export const userIsAdmin = () => {
     return getUserRole() === ADMIN_ROLE
 };
+
+export const currentUser =  () => {
+    return !!getJwtToken() ? jsonwebtoken.decode(getJwtToken()) : null
+};
+

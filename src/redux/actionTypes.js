@@ -18,6 +18,8 @@ export const REMOVE_DELETE_OPENING_SUCCESS = 'REMOVE_DELETE_OPENING_SUCCESS';
 export const NOTIFICATION_ALERT       = 'NOTIFICATION_ALERT';
 export const CLEAR_NOTIFICATION_ALERT = 'CLEAR_NOTIFICATION_ALERT';
 export const RESET_USER               = 'RESET_USER';
+export const ADD_OPENING_NOT_FOUND    = 'ADD_OPENING_NOT_FOUND';
+export const REMOVE_OPENING_NOT_FOUND = 'REMOVE_OPENING_NOT_FOUND';
 export const STATUSES = {
     success: 'success',
     failure: 'failure',

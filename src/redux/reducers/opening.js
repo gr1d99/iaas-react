@@ -8,7 +8,9 @@ import {
     ADD_UPDATE_OPENING_SUCCESS,
     REMOVE_UPDATE_OPENING_SUCCESS,
     REMOVE_DELETE_OPENING_SUCCESS,
-    DELETE_OPENING
+    DELETE_OPENING,
+    ADD_OPENING_NOT_FOUND,
+    REMOVE_OPENING_NOT_FOUND
 } from "../actionTypes";
 
 const initialState = {};
@@ -37,6 +39,10 @@ export default (state = initialState, action) => {
             return { ...initialState, delete: true };
         case REMOVE_DELETE_OPENING_SUCCESS:
             return { ...state, delete: undefined };
+        case ADD_OPENING_NOT_FOUND:
+            return { ...state, ...payload };
+        case REMOVE_OPENING_NOT_FOUND:
+            return { ...state, ...payload };
         default:
             return state;
     }

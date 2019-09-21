@@ -8,14 +8,15 @@ import { Redirect } from "react-router-dom";
 
 import { fetchOpeningDetail } from "../../../services/openings";
 
-import { removeDeleteOpeningSuccess } from "../../../redux/actions";
+import { removeDeleteOpeningSuccess, removeOpeningNotFound } from "../../../redux/actions";
 
 import OpeningDetailCard from "./OpeningDetailCard";
+import OpeningNotFound from "./OpeningNotFound";
 
 import "./css/index.css"
 
 
-const OpeningDetail = ({ opening, fetchOpeningDetail, match, history, removeDeleteOpeningSuccess }) => {
+const OpeningDetail = ({ opening, fetchOpeningDetail, match, history, removeDeleteOpeningSuccess, removeOpeningNotFound }) => {
     const { id } = match.params;
 
     React.useEffect(() => {
@@ -24,13 +25,16 @@ const OpeningDetail = ({ opening, fetchOpeningDetail, match, history, removeDele
 
     React.useEffect(() => {
         return () => {
-            removeDeleteOpeningSuccess()
+            removeDeleteOpeningSuccess();
+            removeOpeningNotFound()
         }
     }, []);
 
     if (opening.detail) {
-        const { data } = opening.detail;
-        return <OpeningDetailCard history={history} data={ data }/>
+        const {data} = opening.detail;
+        return <OpeningDetailCard history={history} data={data}/>
+    } else if (opening.not_found) {
+            return <OpeningNotFound/>
     } else if (opening.delete) {
         return <Redirect to="/openings"/>
     } else {
@@ -48,5 +52,6 @@ const mapStateToProps = ({ opening }) => ({ opening });
 
 export default connect(mapStateToProps, {
     fetchOpeningDetail,
-    removeDeleteOpeningSuccess
+    removeDeleteOpeningSuccess,
+    removeOpeningNotFound
 })(OpeningDetail)

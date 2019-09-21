@@ -7,7 +7,7 @@ import {
     notificationAlert,
     addOpeningErrors,
     setAllOpenings,
-    deleteOpening,
+    deleteOpening, addOpeningNotFound,
 } from "../redux/actions";
 import {
     ADD_UPDATE_OPENING_SUCCESS,
@@ -52,7 +52,7 @@ export const fetchOpeningDetail = (id) => {
                 dispatch(addOpeningDetail(response.data))
             })
             .catch((error) => {
-                throw error
+                dispatch(addOpeningNotFound())
             })
     }
 };

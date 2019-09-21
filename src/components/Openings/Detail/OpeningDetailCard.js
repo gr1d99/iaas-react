@@ -10,9 +10,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import DeleteOpeningModal from "../Modals/DeleteOpeningModal";
 
+import useAuthContext from "../../../contexts/authentication/hooks/useAuthContext";
+import useOpeningOwner from "../hooks/useOpeningOwner";
+
 
 const OpeningDetailCard = ({ data, history }) => {
-    const { attributes, id } = data;
+    const [{authenticated, roles}] = useAuthContext();
+
+    const { attributes, id, relationships } = data;
+
+    const { user } = relationships;
+
+    const openingOwner = useOpeningOwner(user);
 
     const [modalOpen, toggleModal] = React.useState(false);
 
@@ -30,16 +39,17 @@ const OpeningDetailCard = ({ data, history }) => {
                     </Link>
                 </div>
 
+                { authenticated && roles.admin && openingOwner ? (
+                    <div className="float-right">
+                        <Link to={`/openings/${id}/edit`} className="link mr-1">
+                            <FontAwesomeIcon className="ml-1 mr-1" icon="pencil-alt"/> Edit
+                        </Link>
 
-                <div className="float-right">
-                    <Link to={`/openings/${id}/edit`} className="link mr-1">
-                        <FontAwesomeIcon className="ml-1 mr-1" icon="pencil-alt"/> Edit
-                    </Link>
-
-                    <Link to="#" className="link ml-1" onClick={() => toggleModal(!modalOpen)}>
-                        <FontAwesomeIcon icon="trash-alt"/> Delete
-                    </Link>
-                </div>
+                        <Link to="#" className="link ml-1" onClick={() => toggleModal(!modalOpen)}>
+                            <FontAwesomeIcon icon="trash-alt"/> Delete
+                        </Link>
+                    </div>
+                ) : <React.Fragment/> }
             </div>
 
             <br/>
