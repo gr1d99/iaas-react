@@ -1,12 +1,10 @@
 import React from "react";
 
-import { Cookies } from "react-cookie";
+import {getJwtToken} from "../helpers/auth";
 
-
-const cookies = new Cookies();
 
 const useAuthentication = () => {
-    const jwtTokenExists = !!cookies.get("jwtToken");
+    const jwtTokenExists = !!getJwtToken();
     const [authenticated, setAuthenticated] = React.useState(jwtTokenExists);
 
 

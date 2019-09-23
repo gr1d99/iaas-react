@@ -8,20 +8,48 @@ import { Card, CardBody, Container } from "reactstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import DeleteOpeningModal from "../Modals/DeleteOpeningModal";
+
+import useAuthContext from "../../../contexts/authentication/hooks/useAuthContext";
+import useOpeningOwner from "../hooks/useOpeningOwner";
+
 
 const OpeningDetailCard = ({ data, history }) => {
-    const { attributes, id } = data;
+    const [{authenticated, roles}] = useAuthContext();
+
+    const { attributes, id, relationships } = data;
+
+    const { user } = relationships;
+
+    const openingOwner = useOpeningOwner(user);
+
+    const [modalOpen, toggleModal] = React.useState(false);
 
     return (
         <Container className="mt-5">
-            <div className="clearfix">
-                <Link to="#" onClick={history.goBack} className="link float-left">
-                    <FontAwesomeIcon icon="chevron-left"/> Go back
-                </Link>
+            <DeleteOpeningModal
+                toggleModal={toggleModal}
+                modalOpen={modalOpen}
+                openingId={id}/>
 
-                <Link to={`/openings/${id}/edit`} className="link float-right">
-                    <FontAwesomeIcon icon="pencil-alt"/> Edit
-                </Link>
+            <div className="clearfix">
+                <div className="float-left">
+                    <Link to="#" onClick={history.goBack} className="link">
+                        <FontAwesomeIcon icon="chevron-left"/> Go back
+                    </Link>
+                </div>
+
+                { authenticated && roles.admin && openingOwner ? (
+                    <div className="float-right">
+                        <Link to={`/openings/${id}/edit`} className="link mr-1">
+                            <FontAwesomeIcon className="ml-1 mr-1" icon="pencil-alt"/> Edit
+                        </Link>
+
+                        <Link to="#" className="link ml-1" onClick={() => toggleModal(!modalOpen)}>
+                            <FontAwesomeIcon icon="trash-alt"/> Delete
+                        </Link>
+                    </div>
+                ) : <React.Fragment/> }
             </div>
 
             <br/>

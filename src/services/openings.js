@@ -6,9 +6,13 @@ import {
     createOpeningSuccess,
     notificationAlert,
     addOpeningErrors,
-    setAllOpenings
+    setAllOpenings,
+    deleteOpening, addOpeningNotFound,
 } from "../redux/actions";
-import {ADD_UPDATE_OPENING_SUCCESS} from "../redux/actionTypes";
+import {
+    ADD_UPDATE_OPENING_SUCCESS,
+    DELETE_OPENING,
+} from "../redux/actionTypes";
 
 export const createOpening = (data) => {
     return dispatch => {
@@ -48,7 +52,7 @@ export const fetchOpeningDetail = (id) => {
                 dispatch(addOpeningDetail(response.data))
             })
             .catch((error) => {
-                throw error
+                dispatch(addOpeningNotFound())
             })
     }
 };
@@ -67,5 +71,20 @@ export const updateOpeningDetail = (id, data) => {
                 dispatch(addOpeningErrors(error.response.data.errors))
             }
         )
+    }
+};
+
+export const destroyOpening = (id) => {
+    const url = `/openings/${id}`;
+
+    return dispatch => {
+        return axiosInstance.delete(url)
+            .then(() => {
+                dispatch(deleteOpening());
+                dispatch(notificationAlert({ message: "Opening deleted successfully", kind: "success"}))
+            })
+            .catch((error) => {
+                throw error
+            })
     }
 };

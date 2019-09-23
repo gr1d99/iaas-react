@@ -14,7 +14,11 @@ import {
     CREATE_OPENING_SUCCESS,
     CLEAR_OPENING_ERRORS,
     ALL_OPENINGS,
-    RESET_USER, REMOVE_UPDATE_OPENING_SUCCESS
+    RESET_USER,
+    REMOVE_UPDATE_OPENING_SUCCESS,
+    REMOVE_DELETE_OPENING_SUCCESS,
+    DELETE_OPENING,
+    ADD_OPENING_NOT_FOUND, REMOVE_OPENING_NOT_FOUND
 } from './actionTypes';
 
 
@@ -117,10 +121,28 @@ export const removeUpdateOpeningSuccess = () => {
     )
 };
 
+export const removeDeleteOpeningSuccess = () => {
+    return dispatch => { dispatch({ type: REMOVE_DELETE_OPENING_SUCCESS}) }
+};
+
+export const deleteOpening = () => {
+    return { type: DELETE_OPENING, payload: {} }
+};
+
 export const notify = (message, kind) => {
     return dispatch => dispatch(notificationAlert({message, kind}))
 };
 
 export const clearNotificationAlert = () => {
     return dispatch => dispatch({ type: CLEAR_NOTIFICATION_ALERT })
+};
+
+export const addOpeningNotFound = () => {
+    return { type: ADD_OPENING_NOT_FOUND, payload: { not_found: true }}
+};
+
+export const removeOpeningNotFound = () => {
+    return dispatch => {
+        dispatch({type: REMOVE_OPENING_NOT_FOUND, payload: { not_found: undefined }})
+    }
 };
