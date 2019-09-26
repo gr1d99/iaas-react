@@ -49,7 +49,7 @@ const SignUpForm = (props) => {
                        onChange={handleInputChange}/>
             </FormGroup>
 
-            <Button>Create Account</Button>
+            <Button className="btn btn-success">Create Account</Button>
         </Form>
     )
 };

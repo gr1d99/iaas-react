@@ -12,12 +12,12 @@ const OpeningCard = ({ id, attributes }) => {
     return (
         <Col lg="4" className="d-flex align-items-lg-stretch mb-3">
             <Card body>
-                <CardHeader className="text-capitalize opening-title">{attributes.title}</CardHeader>
-                <CardText className="mt-3">
+                <CardHeader className="text-capitalize opening-list__title">{attributes.title}</CardHeader>
+                <CardText className="mt-3 opening-description">
                     <EllipsisText text={attributes.description} length={120} />
                     </CardText>
 
-                <Link to={`/openings/${id}`} className="link opening-detail-link">Learn More</Link>
+                <Link to={`/openings/${id}`} className="btn btn-sm btn-success link opening-list__learn_more">Learn More</Link>
             </Card>
         </Col>
     )

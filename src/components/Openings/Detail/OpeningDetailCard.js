@@ -2,66 +2,43 @@ import React from "react";
 
 import PropTypes from "prop-types";
 
-import { Link } from "react-router-dom";
-
-import { Card, CardBody, Container } from "reactstrap";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Card, CardBody, Col, Container, Row } from "reactstrap";
 
 import DeleteOpeningModal from "../Modals/DeleteOpeningModal";
-
-import useAuthContext from "../../../contexts/authentication/hooks/useAuthContext";
-import useOpeningOwner from "../hooks/useOpeningOwner";
+import OpeningActions from "./OpeningActions";
 
 
-const OpeningDetailCard = ({ data, history }) => {
-    const [{authenticated, roles}] = useAuthContext();
-
+const OpeningDetailCard = ({ data }) => {
     const { attributes, id, relationships } = data;
 
     const { user } = relationships;
 
-    const openingOwner = useOpeningOwner(user);
-
     const [modalOpen, toggleModal] = React.useState(false);
 
     return (
-        <Container className="mt-5">
-            <DeleteOpeningModal
-                toggleModal={toggleModal}
-                modalOpen={modalOpen}
-                openingId={id}/>
+        <Container className="mt-5 opening-detail">
+            <Row>
+                <Col sm="12" md={{ size: 8, offset: 2 }}>
+                    <DeleteOpeningModal
+                        toggleModal={toggleModal}
+                        modalOpen={modalOpen}
+                        openingId={id}/>
 
-            <div className="clearfix">
-                <div className="float-left">
-                    <Link to="#" onClick={history.goBack} className="link">
-                        <FontAwesomeIcon icon="chevron-left"/> Go back
-                    </Link>
-                </div>
+                    <OpeningActions
+                        user={user}
+                        id={id}
+                        toggleModal={toggleModal}
+                        modalOpen={modalOpen}/>
 
-                { authenticated && roles.admin && openingOwner ? (
-                    <div className="float-right">
-                        <Link to={`/openings/${id}/edit`} className="link mr-1">
-                            <FontAwesomeIcon className="ml-1 mr-1" icon="pencil-alt"/> Edit
-                        </Link>
-
-                        <Link to="#" className="link ml-1" onClick={() => toggleModal(!modalOpen)}>
-                            <FontAwesomeIcon icon="trash-alt"/> Delete
-                        </Link>
-                    </div>
-                ) : <React.Fragment/> }
-            </div>
-
-            <br/>
-
-            <Card>
-                <CardBody>
-                    <h3 className="opening-title">{ attributes.title }</h3>
-                    <hr/>
+                    <br/>
 
                     <Card>
                         <CardBody>
-                            <span className="d-flex flex-column opening-detail-meta">
+                            <h5 className="opening-title">{ attributes.title }</h5>
+
+                            <hr/>
+
+                            <span className="d-flex flex-column opening-detail__meta">
                                 <span className="">
                                     <strong>Location: </strong>{ attributes.location }
                                 </span>
@@ -75,27 +52,20 @@ const OpeningDetailCard = ({ data, history }) => {
                                     <strong>End Date: </strong>{ attributes["end-date"]}
                                 </span>
                             </span>
+
+                            <hr/>
+
+                            <h4>Description</h4>
+                            <p className="text-justify opening-detail__description"> { attributes.description }</p>
+
+                            <hr/>
+
+                            <h4>Qualifications</h4>
+                            <p className="text-justify opening-detail__description">{ attributes.qualifications }</p>
                         </CardBody>
                     </Card>
-
-                    <br/>
-
-                    <h4>Description</h4>
-                    <Card>
-                        <CardBody>
-                            <p className="text-justify opening-detail-description"> { attributes.description }</p>
-                        </CardBody>
-                    </Card>
-                    <hr/>
-
-                    <h4>Qualifications</h4>
-                    <Card>
-                        <CardBody>
-                            <p className="text-justify opening-detail-description">{ attributes.qualifications }</p>
-                        </CardBody>
-                    </Card>
-                </CardBody>
-            </Card>
+                </Col>
+            </Row>
         </Container>
     )
 };

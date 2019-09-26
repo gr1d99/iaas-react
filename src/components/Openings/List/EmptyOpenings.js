@@ -17,7 +17,7 @@ export default () => {
         <Container fluid className="mt-5">
             <Jumbotron className="text-center">
                 <h3 className="display-4">Oops!! There are no openings yet</h3>
-                { roles.admin ? <Link to={routes.openings.create} className="link add-opening-link"><FontAwesomeIcon icon="plus"/> Add an opening</Link> : <p>Check in later</p> }
+                { roles.admin ? <Link to="/o/create" className="link add-opening-link"><FontAwesomeIcon icon="plus"/> Add an opening</Link> : <p>Check in later</p> }
             </Jumbotron>
         </Container>
     )

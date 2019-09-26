@@ -10,6 +10,8 @@ import { createOpening } from "../../../services/openings";
 
 import OpeningForm from "./OpeningForm";
 
+import Container from "reactstrap/es/Container";
+
 
 const NewOpening = (props) => {
     const { createOpening, clearOpeningErrors } = props;
@@ -18,9 +20,9 @@ const NewOpening = (props) => {
     if (data && data.attributes) { return <Redirect to="/"/> }
 
     return (
-        <div>
+        <Container className="openings__create">
             <OpeningForm clearOpeningErrors={ clearOpeningErrors } data={ data } createOpening={ createOpening }/>
-        </div>
+        </Container>
     );
 };
 

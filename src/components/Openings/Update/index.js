@@ -14,8 +14,6 @@ import  { removeOpeningErrors, removeUpdateOpeningSuccess } from "../../../redux
 
 import UpdateOpeningForm from "../Update/UpdateOpeningForm";
 
-import "./css/index.css"
-
 
 const UpdateOpening = ({opening, fetchOpeningDetail, updateOpeningDetail, removeOpeningErrors, removeUpdateOpeningSuccess, history, match }) => {
     const { id } = match.params;
@@ -46,7 +44,7 @@ const UpdateOpening = ({opening, fetchOpeningDetail, updateOpeningDetail, remove
         }
 
         return (
-            <Container>
+            <Container className="openings__edit">
                 <UpdateOpeningForm
                     updateOpeningDetail={updateOpening}
                     removeOpeningErrors={removeOpeningErrors}

@@ -39,7 +39,7 @@ const Login = (props) => {
     }
 
     return (
-        <div className="col-md-4 offset-4 mt-5">
+        <div className="col-md-4 offset-4 mt-5 user sign-in">
             { data && data.errors ? (
                 <AsyncFormErrors color="danger" clearAsyncErrors={ resetUser } errors={ data.errors }/>
             ) : (

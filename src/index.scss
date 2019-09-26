@@ -1,0 +1,88 @@
+@import "~bootswatch/dist/lux/_variables.scss";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~bootswatch/dist/lux/_bootswatch.scss";
+@import "_variables";
+@import "_mixins";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// nav stuff
+.navbar-expand-md {
+  .navbar-nav {
+    .nav-link {
+      color: $white;
+      &:hover {
+        color: $gray-400;
+      }
+    }
+  }
+}
+
+.navbar-toggler .navbar-toggler-icon {
+  border-color: black;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+// sign-in and sign-up forms
+.sign-in,
+.sign-up,
+.openings__create,
+.openings__edit {
+  form {
+    label {
+      color: $black;
+      @include font-weight-mixin(400)
+    }
+  }
+}
+
+// opening detail
+.opening-detail {
+  &__meta {
+    font-size: 0.8em;
+    @include font-weight-mixin(400);
+  }
+  &__description {
+    @include font-weight-mixin(400);
+  }
+}
+
+a {
+  &.link {
+    text-decoration: none;
+    font-weight: 500;
+  }
+}
+
+a.link.add-opening-link:hover {
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  padding: .25rem!important;
+  background-color: white;
+}
+
+h4 {
+  font-weight: 300;
+}
+
+.opening-list {
+  &__title {
+    color: $black;
+    font-weight: 350;
+  }
+}
+
+.opening-description {
+  color: $gray-800;
+}
+
+.card.card-body {
+  padding: 0.25rem !important;
+}

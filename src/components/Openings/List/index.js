@@ -9,8 +9,6 @@ import OpeningItems from "./OpeningItems";
 
 import { fetchAllOpenings } from "../../../services/openings";
 
-import "./css/list.css"
-
 
 class OpeningList extends React.Component {
     componentDidMount() {
@@ -22,7 +20,7 @@ class OpeningList extends React.Component {
 
         if (data) {
             return (
-                <Container>
+                <Container className="opening-list">
                     {data.length === 0 ? (
                         <EmptyOpeningItems/>
                     ) : (
@@ -42,8 +40,6 @@ class OpeningList extends React.Component {
     }
 }
 
-const mapStateToProps = ({ opening }) => {
-    return { opening }
-};
+const mapStateToProps = ({ opening }) => ({ opening });
 
 export default connect(mapStateToProps, { fetchAllOpenings })(OpeningList);

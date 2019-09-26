@@ -29,7 +29,7 @@ const SignInForm = ({ authenticateUser }) => {
                 <Input type='password' name='password' id='id_password' value={password} onChange={handleInputChange}/>
             </FormGroup>
 
-            <Button type='submit'>Sign In</Button>
+            <Button type='submit' className="btn-success">Sign In</Button>
         </Form>
     )
 };

@@ -2,6 +2,8 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
+import routes from "../../helpers/routes";
+
 import {
     Col,
     Row
@@ -19,11 +21,11 @@ const Admin = () => {
                 <hr/>
 
                 <div className="d-flex flex-row">
-                    <Link to="/openings/create" className="p-1 link add-opening-link">
+                    <Link to={routes.openings.create} className="p-1 link add-opening-link">
                         <FontAwesomeIcon icon="plus"/> Create
                     </Link>
                     <div className="pr-1 pl-1 pt-1 link">|</div>
-                    <Link to="/openings" className="p-1 link add-opening-link">
+                    <Link to={routes.openings.all} className="p-1 link add-opening-link">
                         <FontAwesomeIcon icon="eye"/> View All
                     </Link>
                 </div>

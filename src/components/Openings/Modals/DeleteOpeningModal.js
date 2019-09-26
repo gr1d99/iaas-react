@@ -26,8 +26,11 @@ const DeleteOpeningModal = ({ opening, openingId, modalOpen, toggleModal, destro
             <ModalHeader toggle={toggle}>Are you sure?</ModalHeader>
             <ModalFooter>
                 <Button color="danger"
+                        className="btn btn-sm"
                         onClick={confirmDelete}>Yes</Button>
-                <Button color="success" onClick={toggle}>No</Button>
+                <Button color="success"
+                        className="btn btn-sm"
+                        onClick={toggle}>No</Button>
             </ModalFooter>
         </Modal>
     )

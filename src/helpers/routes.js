@@ -1,5 +1,6 @@
 export default {
     openings: {
-        create: '/openings/create'
+        create: '/o/create',
+        all: '/o',
     }
 }

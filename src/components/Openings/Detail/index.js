@@ -13,8 +13,6 @@ import { removeDeleteOpeningSuccess, removeOpeningNotFound } from "../../../redu
 import OpeningDetailCard from "./OpeningDetailCard";
 import OpeningNotFound from "./OpeningNotFound";
 
-import "./css/index.css"
-
 
 const OpeningDetail = ({ opening, fetchOpeningDetail, match, history, removeDeleteOpeningSuccess, removeOpeningNotFound }) => {
     const { id } = match.params;

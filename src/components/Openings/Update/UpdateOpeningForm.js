@@ -26,9 +26,9 @@ const EditOpeningForm = ({ data, errors, updateOpeningDetail, removeOpeningError
     return (
         <Row>
             <Col lg={{ size: 6, offset: 3 }} className="mt-5">
-                <Card className="form-card">
+                <Card>
                     <CardTitle className="text-center mt-3">
-                        <h2>Edit Opening</h2>
+                        <h4>Edit Opening</h4>
                         <hr className="ml-3 mr-3"/>
                     </CardTitle>
 
@@ -127,7 +127,7 @@ const EditOpeningForm = ({ data, errors, updateOpeningDetail, removeOpeningError
                                 </Col>
                             </Row>
 
-                            <Button block className="mt-5 mb-3">Submit</Button>
+                            <Button block className="mt-5 mb-3 btn btn-success">Submit</Button>
                         </Form>
                     </CardBody>
                 </Card>

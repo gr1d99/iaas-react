@@ -48,14 +48,15 @@ class App extends React.Component {
 
                             <NoAuthRouteAuthContextConsumer path="/sign_up" component={ SignUp }/>
 
-                            <Route path="/openings" exact component={ OpeningList }/>
-
-                            <AdminRoutesAuthContextConsumer exact path="/openings/create" component={ NewOpening }/>
+                            <Route path="/o" exact component={ OpeningList }/>
 
                             <Route path="/openings/:id" exact render={ (props) => (<OpeningDetail { ...props }/>) }/>
 
                             <AdminRoutesAuthContextConsumer path="/openings/:id/edit" exact component={ UpdateOpening }/>
-                        </div>
+
+
+                            <AdminRoutesAuthContextConsumer exact path="/o/create" component={ NewOpening }/>
+                            </div>
                         <div id="footer" className="mt-5"></div>
                     </div>
                 </Router>
