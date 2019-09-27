@@ -1,25 +1,25 @@
-import React from 'react';
+import React from "react";
 
-import {
-    BrowserRouter as Router,
-    Route
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { withCookies } from 'react-cookie'
+import { withCookies } from "react-cookie"
 
-import './css/App.css';
+import "../Icons";
 
-import '../Icons';
+// App components
+import NavigationBar from "./../NavigationBar";
 
-import HomePage from '../HomePage';
-import SignIn from '../SignIn'
 import MessageAlertBox from "../AlertBoxes/MessageAlertBox";
-import NavigationBar from './../NavigationBar';
+
+import HomePage from "../HomePage";
+
+import SignIn from "../SignIn";
+import SignUp from "../SignUp";
+
 import NewOpening from "../Openings/Create"
 import OpeningList from "../Openings/List/";
 import OpeningDetail from "../Openings/Detail";
 import UpdateOpening from "../Openings/Update";
-import SignUp from "../SignUp";
 
 import AuthContextProvider from "../../contexts/authentication/Provider";
 import AdminRoutesAuthContextConsumer from "../../contexts/authentication/consumers/AdminRoutesAuthContextConsumer";
@@ -28,21 +28,21 @@ import authContextReducer from "../../contexts/authentication/reducer";
 
 import NoAuthRouteAuthContextConsumer from "../../contexts/authentication/consumers/NoAuthRouteContextConsumer";
 
+
 class App extends React.Component {
     render() {
-        const { cookies, onDismissAlert, alertOptions } = this.props;
+        const { onDismissAlert, alertOptions } = this.props;
 
         return (
             <AuthContextProvider initialState={ authContextInitialState } reducer={ authContextReducer }>
                 <Router>
-                    <div className='App'>
-                        <NavigationBar cookies={ cookies }/>
+                    <div className="App">
+                        <NavigationBar/>
+                        <div className="container-fluid">
 
-                        <header className='App-header'></header>
-                        <div className='container-fluid'>
                             <MessageAlertBox onDismiss={ onDismissAlert } { ...alertOptions }/>
 
-                            <Route path='/' exact component={ HomePage } />
+                            <Route path="/" exact component={ HomePage } />
 
                             <NoAuthRouteAuthContextConsumer path="/sign_in" component={ SignIn }/>
 

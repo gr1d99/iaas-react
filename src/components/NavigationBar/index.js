@@ -1,11 +1,9 @@
 import { connect } from 'react-redux';
 
-import { destroySession } from '../../services/sessions';
-
 import NavigationBar from './NavigationBar';
 
-const mapStateToProps = ({ user }) => ({ user: user });
+import { destroySession } from '../../services/sessions';
 
-export default connect(mapStateToProps, {
-    destroySession
-})(NavigationBar);
+const mapStateToProps = ({ user }) => ({ user });
+
+export default connect(mapStateToProps, { destroySession })(NavigationBar);
