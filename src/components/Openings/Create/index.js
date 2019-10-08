@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { Redirect } from "react-router-dom";
 
-import { removeOpeningErrors } from "../../../redux/actions";
+import { resetCreateOpening } from "../../../redux/actions";
 
 import { createOpening } from "../../../services/openings";
 
@@ -12,16 +12,17 @@ import OpeningForm from "./OpeningForm";
 
 import Container from "reactstrap/es/Container";
 
+import routes from "../../../helpers/routePaths";
 
-const NewOpening = (props) => {
-    const { createOpening, clearOpeningErrors } = props;
-    const { data } = props.opening;
 
-    if (data && data.attributes) { return <Redirect to="/"/> }
+const NewOpening = ({ opening, createOpening, resetCreateOpening }) => {
+    const createOpeningData = opening.create ? opening.create.data : undefined;
+
+    if (createOpeningData && createOpeningData.attributes) { resetCreateOpening(); return <Redirect to={routes.openings.detail(createOpeningData.id)}/> }
 
     return (
         <Container className="openings__create">
-            <OpeningForm clearOpeningErrors={ clearOpeningErrors } data={ data } createOpening={ createOpening }/>
+            <OpeningForm clearOpeningErrors={ resetCreateOpening } data={ createOpeningData } createOpening={ createOpening }/>
         </Container>
     );
 };
@@ -31,5 +32,5 @@ const mapStateToProps = ({ opening }) => ({ opening });
 export default connect(
     mapStateToProps, {
         createOpening,
-        clearOpeningErrors: removeOpeningErrors,
+        resetCreateOpening
     })(NewOpening);

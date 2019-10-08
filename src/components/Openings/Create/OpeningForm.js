@@ -42,7 +42,10 @@ const OpeningForm = (props) => {
                     ) : (<React.Fragment/>) : (<React.Fragment/>)
                 }
                 <Card>
-                    <CardTitle className="text-center"><h4>Create Opening</h4></CardTitle>
+                    <CardTitle className="text-center mt-3">
+                        <h4>Create Opening</h4>
+                        <hr className="ml-3 mr-3"/>
+                    </CardTitle>
                     <CardBody>
                         <Form onSubmit={ handleSubmit }>
                             <Row form>

@@ -13,6 +13,8 @@ import { removeDeleteOpeningSuccess, removeOpeningNotFound } from "../../../redu
 import OpeningDetailCard from "./OpeningDetailCard";
 import OpeningNotFound from "./OpeningNotFound";
 
+import routes from "../../../helpers/routePaths";
+
 
 const OpeningDetail = ({ opening, fetchOpeningDetail, match, history, removeDeleteOpeningSuccess, removeOpeningNotFound }) => {
     const { id } = match.params;
@@ -34,7 +36,7 @@ const OpeningDetail = ({ opening, fetchOpeningDetail, match, history, removeDele
     } else if (opening.not_found) {
             return <OpeningNotFound/>
     } else if (opening.delete) {
-        return <Redirect to="/openings"/>
+        return <Redirect to={routes.openings.all}/>
     } else {
         return <div>Loading...</div>
     }

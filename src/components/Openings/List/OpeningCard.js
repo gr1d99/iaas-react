@@ -8,6 +8,8 @@ import { Card, CardHeader, CardText, Col } from "reactstrap";
 
 import EllipsisText from "react-ellipsis-text";
 
+import routes from "../../../helpers/routePaths";
+
 const OpeningCard = ({ id, attributes }) => {
     return (
         <Col lg="4" className="d-flex align-items-lg-stretch mb-3">
@@ -17,7 +19,7 @@ const OpeningCard = ({ id, attributes }) => {
                     <EllipsisText text={attributes.description} length={120} />
                     </CardText>
 
-                <Link to={`/openings/${id}`} className="btn btn-sm btn-success link opening-list__learn_more">Learn More</Link>
+                <Link to={routes.openings.detail(id)} className="btn btn-sm btn-success link opening-list__learn_more">Learn More</Link>
             </Card>
         </Col>
     )

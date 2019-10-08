@@ -12,7 +12,7 @@ import {
     CLEAR_NOTIFICATION_ALERT,
     CREATE_OPENING_FAILURE,
     CREATE_OPENING_SUCCESS,
-    CLEAR_OPENING_ERRORS,
+    RESET_CREATE_OPENING,
     ALL_OPENINGS,
     RESET_USER,
     REMOVE_UPDATE_OPENING_SUCCESS,
@@ -81,7 +81,11 @@ export const createOpeningSuccess = (data) => {
 };
 
 export const removeOpeningErrors = () => {
-    return dispatch => { dispatch({ type: CLEAR_OPENING_ERRORS }) }
+    return dispatch => { dispatch({ type: RESET_CREATE_OPENING }) }
+};
+
+export const resetCreateOpening = () => {
+    return dispatch => { dispatch({ type: RESET_CREATE_OPENING }) }
 };
 
 export const setAllOpenings = (data) => {

@@ -1,5 +1,5 @@
 import {
-    CLEAR_OPENING_ERRORS,
+    RESET_CREATE_OPENING,
     CREATE_OPENING_FAILURE,
     CREATE_OPENING_SUCCESS,
     ALL_OPENINGS,
@@ -20,11 +20,11 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case CREATE_OPENING_SUCCESS:
-            return { ...state, ...payload };
+            return { ...state, create: payload };
         case CREATE_OPENING_FAILURE:
-            return { ...state, ...payload };
-        case CLEAR_OPENING_ERRORS:
-            return { ...state, errors: undefined, ...payload };
+            return { ...state, create: payload };
+        case RESET_CREATE_OPENING:
+            return { ...state, create: undefined };
         case ALL_OPENINGS:
             return { ...state, ...payload };
         case ADD_OPENING_DETAIL:

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { withCookies } from "react-cookie"
 
@@ -39,24 +39,24 @@ class App extends React.Component {
                     <div className="App">
                         <NavigationBar/>
                         <div className="container-fluid">
-
                             <MessageAlertBox onDismiss={ onDismissAlert } { ...alertOptions }/>
 
-                            <Route path="/" exact component={ HomePage } />
+                            <Switch>
+                                <Route path="/" exact component={ HomePage } />
 
-                            <NoAuthRouteAuthContextConsumer path="/sign_in" component={ SignIn }/>
+                                <NoAuthRouteAuthContextConsumer path="/sign_in" component={ SignIn }/>
 
-                            <NoAuthRouteAuthContextConsumer path="/sign_up" component={ SignUp }/>
+                                <NoAuthRouteAuthContextConsumer path="/sign_up" component={ SignUp }/>
 
-                            <Route path="/o" exact component={ OpeningList }/>
+                                <Route path="/o" exact component={ OpeningList }/>
 
-                            <Route path="/openings/:id" exact render={ (props) => (<OpeningDetail { ...props }/>) }/>
+                                <AdminRoutesAuthContextConsumer exact path="/o/create" component={ NewOpening }/>
 
-                            <AdminRoutesAuthContextConsumer path="/openings/:id/edit" exact component={ UpdateOpening }/>
+                                <Route path="/o/:id" exact render={ (props) => (<OpeningDetail { ...props }/>) }/>
 
-
-                            <AdminRoutesAuthContextConsumer exact path="/o/create" component={ NewOpening }/>
-                            </div>
+                                <AdminRoutesAuthContextConsumer path="/o/:id/edit" exact component={ UpdateOpening }/>
+                            </Switch>
+                        </div>
                         <div id="footer" className="mt-5"></div>
                     </div>
                 </Router>

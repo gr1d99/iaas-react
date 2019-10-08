@@ -14,6 +14,8 @@ import  { removeOpeningErrors, removeUpdateOpeningSuccess } from "../../../redux
 
 import UpdateOpeningForm from "../Update/UpdateOpeningForm";
 
+import routes from "../../../helpers/routePaths";
+
 
 const UpdateOpening = ({opening, fetchOpeningDetail, updateOpeningDetail, removeOpeningErrors, removeUpdateOpeningSuccess, history, match }) => {
     const { id } = match.params;
@@ -39,7 +41,7 @@ const UpdateOpening = ({opening, fetchOpeningDetail, updateOpeningDetail, remove
     if (data) {
         if (opening.update) {
             return (
-                <Redirect to={`/openings/${id}`}/>
+                <Redirect to={routes.openings.detail(id)}/>
             )
         }
 

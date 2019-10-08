@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import useAuthContext from "../../../contexts/authentication/hooks/useAuthContext";
 
-import routes from "../../../helpers/routes";
+import routes from "../../../helpers/routePaths";
 
 export default () => {
     const [{ roles }] = useAuthContext();

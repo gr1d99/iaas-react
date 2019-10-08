@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import useAuthContext from "../../../contexts/authentication/hooks/useAuthContext";
 import useOpeningOwner from "../hooks/useOpeningOwner";
+import routes from "../../../helpers/routePaths";
 
 const OpeningActions = ({ history, user, id, toggleModal, modalOpen }) => {
     const [{authenticated, roles}] = useAuthContext();
@@ -23,7 +24,7 @@ const OpeningActions = ({ history, user, id, toggleModal, modalOpen }) => {
 
             { authenticated && roles.admin && openingOwner ? (
                 <div className="float-right">
-                    <Link to={`/openings/${id}/edit`} className="link mr-1 text-success">
+                    <Link to={routes.openings.edit(id)} className="link mr-1 text-success">
                         <FontAwesomeIcon className="ml-1 mr-1" icon="pencil-alt"/> Edit
                     </Link>
 
