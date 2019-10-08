@@ -17,7 +17,7 @@ import {removeAuthToken, setAuthToken} from "../helpers/auth";
 
 export const createUserSession = (sessionData) => {
     return (dispatch) => {
-        return axiosInstance.post('/sessions', { session: { ...sessionData }})
+        return axiosInstance.post('/sign_in', { session: { ...sessionData }})
             .then((response) => {
                 const userJwt = response.headers['x-access-token'];
                 const notificationData = { message: SESSIONS.created, kind: NOTIFICATION_KINDS.success };
